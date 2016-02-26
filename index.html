@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FuelMapper</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="form.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+  <script src="d3.min.js" charset="utf-8"></script>
+</head>
+<body>
+  <h1>FuelMapper</h1>
+  <h2>The perfect fuel plan for your triathlon</h2>
+
+  <form action="" id="fuelForm">
+    <fieldset>
+      <h3>Basic Info</h3>
+      <div class="row">
+        <div class="basicbox">
+          <label for="swimpace">Swim Pace</label><br>
+          <input name="swimpace" type="text" placeholder="30 min/mi or 30 min/km">
+        </div>
+        <div class="basicbox">
+          <label for="bikepace">Bike Pace</label><br>
+          <input name="bikepace" type="text" placeholder="mph">
+        </div>
+        <div class="basicbox">
+          <label for="runpace">Run Pace</label><br>
+          <input name="runpace" type="text" placeholder="7 mph">
+        </div>
+        <div class="basicbox">
+          <label for="hr">HR at 75%</label><br>
+          <input name="hr" type="text" placeholder="155">
+        </div>
+        <div class="basicbox">
+          <label for="height">Height</label><br>
+          <input name="height" type="text" placeholder="5' 9">
+        </div>
+        <div class="basicbox">
+          <label for="weight">Weight</label><br>
+          <input name="weight" type="text" placeholder="150 lbs or 65 kg">
+        </div>
+        <div class="basicbox">
+          <label for="age">Age</label><br>
+          <input name="age" type="text">
+        </div>
+      </div>
+      <div class="row">
+        <div class="basicbox">
+          <h4>Gender</h4>
+          <input name="gender" value="f" type="radio">
+          <label for="gender">Female</label><br>
+          <input name="gender" value="m" type="radio">
+          <label for="gender">Male</label><br>
+        </div>
+        <div class="basicbox">
+          <label for="sweat">Sweat level</label><br>
+          <select name="sweat" id="">
+            <option value="">Please select a value</option>
+            <option value="1">Usually dry</option>
+            <option value="2">Slight persperation</option>
+            <option value="3">Normal sweat</option>
+            <option value="4">Heavy sweat</option>
+          </select>
+        </div>
+        <div class="basicbox">
+          <label for="caffiene">Caffiene Level</label><br>
+          <select name="caffiene" id="">
+            <option value="">Please select a value</option>
+            <option value="1">No caffiene</option>
+            <option value="2">Just a little caffiene</option>
+            <option value="3">Some caffiene</option>
+            <option value="4">A lot of caffiene</option>
+          </select>
+        </div>
+      </div>
+      <h3>FOOD</h3>
+      <div class="row">
+        <div class="basicbox">
+          <h4>Flavors</h4>
+          <input name="chocolate" value="chocolate" type="radio">
+          <label for="chocolate">Chocolate</label><br>
+          <input name="berry" value="berry" type="radio">
+          <label for="berry">Berry</label><br>
+          <input name="citrus" value="citrus" type="radio">
+          <label for="citrus">Citrus</label><br>
+          <input name="coffee" value="coffee" type="radio">
+          <label for="coffee">Coffee</label><br>
+        </div>
+        <div class="basicbox offset line">
+          <input name="lemonlime" value="lemon" type="radio">
+          <label for="lemonlime">Lemon-Lime</label><br>
+          <input name="fruist" value="fruit" type="radio">
+          <label for="fruist">Other Fruit</label><br>
+          <input name="caramel" value="caramel" type="radio">
+          <label for="caramel">Caramel</label><br>
+          <input name="open" value="open" type="radio">
+          <label for="open">Open to All</label><br>
+        </div>
+        <div class="basicbox line">
+          <h4>Types</h4>
+          <input name="gel" value="gel" type="radio">
+          <label for="gel">Gel/blocks</label><br>
+          <input name="goo" value="goo" type="radio">
+          <label for="goo">Goo</label><br>
+          <input name="bar" value="bar" type="radio">
+          <label for="bar">Bar</label><br>
+          <input name="liquid" value="liquid" type="radio">
+          <label for="liquid">Liquid</label><br>
+        </div>
+        <div class="basicbox">
+          <h4>Brands</h4>
+          <input name="clif" value="clif" type="radio">
+          <label for="clif">Clifbar</label><br>
+          <input name="power" value="power" type="radio">
+          <label for="power">PowerBar</label><br>
+          <input name="stinger" value="stinger" type="radio">
+          <label for="stinger">Honey Stinger</label><br>
+          <input name="skratch" value="skratch" type="radio">
+          <label for="skratch">Skratch</label><br>
+        </div>
+        <div class="basicbox offset">
+          <input name="gu" value="gu" type="radio">
+          <label for="gu">GU</label><br>
+          <input name="gatorade" value="gatorade" type="radio">
+          <label for="gatorade">Gatorade</label><br>
+          <input name="other" value="other" type="radio">
+          <label for="other">Other</label><br>
+        </div>
+        <div class="basicbox"></div>
+      </div>
+      <h3>RACE</h3>
+      <div class="row">
+        <div class="basicbox">
+          <h4>Length</h4>
+          <input name="race" value="300px" type="radio">
+          <label for="race">Sprint</label><br>
+          <input name="race" value="500px" type="radio">
+          <label for="race">Olympic</label><br>
+          <input name="race" value="800px" type="radio">
+          <label for="race">Half-Ironman</label><br>
+          <input name="race" value="1300px" type="radio">
+          <label for="race">Ironman</label><br>
+        </div>
+      </div>
+      <input type="submit" value="create your plan" id="submit">
+    </fieldset>
+  </form>
+
+  <script type="text/javascript" src="graph.js"></script>
+</body>
+</html>
