@@ -1,8 +1,33 @@
 $(function(){
-  $( "#fuelForm" ).on("submit", function(){
-    console.log("working");
+//   $( "body" ).ready(function(){
+//   d3Chart.swimChartFn([
+//     {"x_axis": 0, "y_axis": 0, "points": "0,500 0,0 100,200 100,500", "fill": "rgb(57, 60, 194)"}
+//   ]);
+// });
 
-  event.preventDefault();
+  $( "#fuelForm" ).on("submit", function(){
+    event.preventDefault();
+    d3Chart.triChartFn([
+      {"x_axis": 0, "y_axis": 0, "points": "10,400 10,10 100,200 100,400", "stroke": "rgb(79, 47, 252)", "strokewidth": "2","fill": "none"},
+      {"x_axis": 100, "y_axis": 0, "points": "100,400 100,200 200,270 300,330 400,350 400,400", "stroke": "rgb(48, 177, 169)", "strokewidth": "2","fill": "none"},
+      {"x_axis": 100, "y_axis": 0, "points": "400,400 400,350 500,190 600,190 700,273 800,200 900,160 1000,390 1100,300 1100,400", "stroke":"rgb(171, 146, 23)" , "strokewidth":"2","fill":"none"}
+    ]);
+    d3Chart.circlesFn([
+      {"x_axis": 10, "y_axis": 10, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
+      {"x_axis": 100, "y_axis": 200, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
+      {"x_axis": 200, "y_axis": 270, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
+      {"x_axis": 300, "y_axis": 330, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
+      {"x_axis": 400, "y_axis": 350, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
+      {"x_axis": 500, "y_axis": 190, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
+      {"x_axis": 600, "y_axis": 190, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
+      {"x_axis": 700, "y_axis": 273, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
+      {"x_axis": 800, "y_axis": 200, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
+      {"x_axis": 900, "y_axis": 160, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
+      {"x_axis": 1000, "y_axis": 390, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
+      {"x_axis": 1100, "y_axis": 300, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"}
+    ]);
+
+
   var serialURL = $( this ).serialize().split("&");
 
   var information = {};

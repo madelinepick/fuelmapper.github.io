@@ -7,11 +7,12 @@
   <link rel="stylesheet" href="form.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
   <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="graph.js"></script>
   <script src="d3.min.js" charset="utf-8"></script>
 </head>
 <body>
   <h1>FuelMapper</h1>
-  <h2>The perfect fuel plan for your triathlon</h2>
+  <h2>The fuel plan for your triathlon</h2>
 
   <form action="" id="fuelForm">
     <fieldset>
@@ -41,12 +42,12 @@
           <label for="weight">Weight</label><br>
           <input name="weight" type="text" placeholder="150 lbs or 65 kg">
         </div>
+      </div>
+      <div class="row">
         <div class="basicbox">
           <label for="age">Age</label><br>
           <input name="age" type="text">
         </div>
-      </div>
-      <div class="row">
         <div class="basicbox">
           <h4>Gender</h4>
           <input name="gender" value="f" type="radio">
@@ -74,6 +75,8 @@
             <option value="4">A lot of caffiene</option>
           </select>
         </div>
+        <div class="basicbox"></div>
+        <div class="basicbox"></div>
       </div>
       <h3>FOOD</h3>
       <div class="row">
@@ -130,24 +133,80 @@
         </div>
         <div class="basicbox"></div>
       </div>
-      <h3>RACE</h3>
-      <div class="row">
-        <div class="basicbox">
-          <h4>Length</h4>
-          <input name="race" value="300px" type="radio">
-          <label for="race">Sprint</label><br>
-          <input name="race" value="500px" type="radio">
-          <label for="race">Olympic</label><br>
-          <input name="race" value="800px" type="radio">
-          <label for="race">Half-Ironman</label><br>
-          <input name="race" value="1300px" type="radio">
-          <label for="race">Ironman</label><br>
-        </div>
-      </div>
       <input type="submit" value="create your plan" id="submit">
     </fieldset>
   </form>
+  <!-- <button onclick="transition()">Update</button> -->
 
-  <script type="text/javascript" src="graph.js"></script>
+  <!-- <script>
+
+  var n = 4, // number of layers
+      m = 200, // number of samples per layer
+      stack = d3.layout.stack().offset("wiggle"),
+      layers0 = stack(d3.range(n).map(function() { return bumpLayer(m); })),
+      layers1 = stack(d3.range(n).map(function() { return bumpLayer(m); }));
+
+  var width = 960,
+      height = 500;
+
+  var x = d3.scale.linear()
+      .domain([0, m - 1])
+      .range([0, width]);
+
+  var y = d3.scale.linear()
+      .domain([0, d3.max(layers0.concat(layers1), function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
+      .range([height, 0]);
+
+  var color = d3.scale.linear()
+      .range(["#71a397", "#0d794f"]);
+
+  var area = d3.svg.area()
+      .x(function(d) { return x(d.x); })
+      .y0(function(d) { return y(d.y0); })
+      .y1(function(d) { return y(d.y0 + d.y); });
+
+  var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+  svg.selectAll("path")
+      .data(layers0)
+    .enter().append("path")
+      .attr("d", area)
+      .style("fill", function() { return color(Math.random()); });
+
+  function transition() {
+    d3.selectAll("path")
+        .data(function() {
+          var d = layers1;
+          layers1 = layers0;
+          return layers0 = d;
+        })
+      .transition()
+        .duration(2500)
+        .attr("d", area);
+  }
+
+  // Inspired by Lee Byron's test data generator.
+  function bumpLayer(n) {
+
+    function bump(a) {
+      var x = 1 / (.1 + Math.random()),
+          y = 2 * Math.random() - .5,
+          z = 10 / (.1 + Math.random());
+      for (var i = 0; i < n; i++) {
+        var w = (i / n - y) * z;
+        a[i] += x * Math.exp(-w * w);
+      }
+    }
+
+    var a = [], i;
+    for (i = 0; i < n; ++i) a[i] = 0;
+    for (i = 0; i < 5; ++i) bump(a);
+    return a.map(function(d, i) { return {x: i, y: Math.max(0, d)}; });
+  }
+
+  </script> -->
+
 </body>
 </html>

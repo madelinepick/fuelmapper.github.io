@@ -25,9 +25,14 @@ h4{
 }
 form{
   margin-left: 40px;
+  margin-right: 40px;
+    background-color: rgb(155, 185, 158);
 }
 fieldset{
   border: none;
+}
+text{
+  display: none;
 }
 .row{
   display: flex;
@@ -60,4 +65,11 @@ fieldset{
   margin-top: 15px;
   background-color: white;
   border-radius: 4px;
+}
+.rotate {
+     -moz-transform: rotate(7.5deg);  /* FF3.5+ */
+       -o-transform: rotate(7.5deg);  /* Opera 10.5 */
+  -webkit-transform: rotate(7.5deg);  /* Saf3.1+, Chrome */
+             filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
+         -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
 }
