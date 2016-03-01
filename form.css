@@ -32,7 +32,11 @@ fieldset{
   border: none;
 }
 text{
-  display: none;
+  opacity: 0;
+  padding: 20px;
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: 200;
 }
 .row{
   display: flex;
@@ -47,7 +51,7 @@ text{
   font-size: 12px;
 }
 .offset {
-  padding-top: 28px;
+  padding-top: 5px;
 }
 .line {
   border-right: 1px solid rgb(189, 189, 189);
@@ -66,10 +70,30 @@ text{
   background-color: white;
   border-radius: 4px;
 }
-.rotate {
-     -moz-transform: rotate(7.5deg);  /* FF3.5+ */
-       -o-transform: rotate(7.5deg);  /* Opera 10.5 */
-  -webkit-transform: rotate(7.5deg);  /* Saf3.1+, Chrome */
-             filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
-         -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+.foodrow {
+  display: flex;
+  margin-left: 40px;
+  margin-right: 40px;
+  justify-content:center;
+
+}
+.food {
+  flex: 1;
+  padding: 30px;
+  justify-content:center;
+}
+.titlerow{
+  margin-top: 40px;
+  margin-left: 40px;
+}
+img{
+  height: 150px;
+  margin: 15px;
+}
+.caption{
+  visibility: hidden;
+  text-align: center;
+}
+.info{
+  text-align: center;
 }

@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="form.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
   <script type="text/javascript" src="main.js"></script>
-  <script type="text/javascript" src="graph.js"></script>
+  <!-- <script type="text/javascript" src="graph.js"></script> -->
   <script src="d3.min.js" charset="utf-8"></script>
 </head>
 <body>
@@ -49,7 +49,7 @@
           <input name="age" type="text">
         </div>
         <div class="basicbox">
-          <h4>Gender</h4>
+          <label for="gender">Gender</label><br>
           <input name="gender" value="f" type="radio">
           <label for="gender">Female</label><br>
           <input name="gender" value="m" type="radio">
@@ -78,10 +78,9 @@
         <div class="basicbox"></div>
         <div class="basicbox"></div>
       </div>
-      <h3>FOOD</h3>
+      <h3>Flavors</h3>
       <div class="row">
         <div class="basicbox">
-          <h4>Flavors</h4>
           <input name="chocolate" value="chocolate" type="radio">
           <label for="chocolate">Chocolate</label><br>
           <input name="berry" value="berry" type="radio">
@@ -91,122 +90,26 @@
           <input name="coffee" value="coffee" type="radio">
           <label for="coffee">Coffee</label><br>
         </div>
-        <div class="basicbox offset line">
+        <div class="basicbox offset">
           <input name="lemonlime" value="lemon" type="radio">
           <label for="lemonlime">Lemon-Lime</label><br>
-          <input name="fruist" value="fruit" type="radio">
-          <label for="fruist">Other Fruit</label><br>
+          <input name="fruit" value="fruit" type="radio">
+          <label for="fruit">Other Fruit</label><br>
           <input name="caramel" value="caramel" type="radio">
-          <label for="caramel">Caramel</label><br>
-          <input name="open" value="open" type="radio">
-          <label for="open">Open to All</label><br>
+          <label for="caramel">Caramel/honey</label><br>
+          <input name="nuts" value="nuts" type="radio">
+          <label for="nuts">Nuts</label><br>
         </div>
-        <div class="basicbox line">
-          <h4>Types</h4>
-          <input name="gel" value="gel" type="radio">
-          <label for="gel">Gel/blocks</label><br>
-          <input name="goo" value="goo" type="radio">
-          <label for="goo">Goo</label><br>
-          <input name="bar" value="bar" type="radio">
-          <label for="bar">Bar</label><br>
-          <input name="liquid" value="liquid" type="radio">
-          <label for="liquid">Liquid</label><br>
-        </div>
-        <div class="basicbox">
-          <h4>Brands</h4>
-          <input name="clif" value="clif" type="radio">
-          <label for="clif">Clifbar</label><br>
-          <input name="power" value="power" type="radio">
-          <label for="power">PowerBar</label><br>
-          <input name="stinger" value="stinger" type="radio">
-          <label for="stinger">Honey Stinger</label><br>
-          <input name="skratch" value="skratch" type="radio">
-          <label for="skratch">Skratch</label><br>
-        </div>
-        <div class="basicbox offset">
-          <input name="gu" value="gu" type="radio">
-          <label for="gu">GU</label><br>
-          <input name="gatorade" value="gatorade" type="radio">
-          <label for="gatorade">Gatorade</label><br>
-          <input name="other" value="other" type="radio">
-          <label for="other">Other</label><br>
-        </div>
+        <div class="basicbox"></div>
+        <div class="basicbox"></div>
+        <div class="basicbox"></div>
         <div class="basicbox"></div>
       </div>
       <input type="submit" value="create your plan" id="submit">
     </fieldset>
   </form>
-  <!-- <button onclick="transition()">Update</button> -->
-
-  <!-- <script>
-
-  var n = 4, // number of layers
-      m = 200, // number of samples per layer
-      stack = d3.layout.stack().offset("wiggle"),
-      layers0 = stack(d3.range(n).map(function() { return bumpLayer(m); })),
-      layers1 = stack(d3.range(n).map(function() { return bumpLayer(m); }));
-
-  var width = 960,
-      height = 500;
-
-  var x = d3.scale.linear()
-      .domain([0, m - 1])
-      .range([0, width]);
-
-  var y = d3.scale.linear()
-      .domain([0, d3.max(layers0.concat(layers1), function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
-      .range([height, 0]);
-
-  var color = d3.scale.linear()
-      .range(["#71a397", "#0d794f"]);
-
-  var area = d3.svg.area()
-      .x(function(d) { return x(d.x); })
-      .y0(function(d) { return y(d.y0); })
-      .y1(function(d) { return y(d.y0 + d.y); });
-
-  var svg = d3.select("body").append("svg")
-      .attr("width", width)
-      .attr("height", height);
-
-  svg.selectAll("path")
-      .data(layers0)
-    .enter().append("path")
-      .attr("d", area)
-      .style("fill", function() { return color(Math.random()); });
-
-  function transition() {
-    d3.selectAll("path")
-        .data(function() {
-          var d = layers1;
-          layers1 = layers0;
-          return layers0 = d;
-        })
-      .transition()
-        .duration(2500)
-        .attr("d", area);
-  }
-
-  // Inspired by Lee Byron's test data generator.
-  function bumpLayer(n) {
-
-    function bump(a) {
-      var x = 1 / (.1 + Math.random()),
-          y = 2 * Math.random() - .5,
-          z = 10 / (.1 + Math.random());
-      for (var i = 0; i < n; i++) {
-        var w = (i / n - y) * z;
-        a[i] += x * Math.exp(-w * w);
-      }
-    }
-
-    var a = [], i;
-    for (i = 0; i < n; ++i) a[i] = 0;
-    for (i = 0; i < 5; ++i) bump(a);
-    return a.map(function(d, i) { return {x: i, y: Math.max(0, d)}; });
-  }
-
-  </script> -->
-
+  <div class="chart"></div>
+  <div class="titlerow"></div>
+  <div class="foodrow"></div>
 </body>
 </html>

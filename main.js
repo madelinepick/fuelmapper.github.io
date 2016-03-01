@@ -1,32 +1,9 @@
 $(function(){
-//   $( "body" ).ready(function(){
-//   d3Chart.swimChartFn([
-//     {"x_axis": 0, "y_axis": 0, "points": "0,500 0,0 100,200 100,500", "fill": "rgb(57, 60, 194)"}
-//   ]);
-// });
 
   $( "#fuelForm" ).on("submit", function(){
-    event.preventDefault();
-    d3Chart.triChartFn([
-      {"x_axis": 0, "y_axis": 0, "points": "10,400 10,10 100,200 100,400", "stroke": "rgb(79, 47, 252)", "strokewidth": "2","fill": "none"},
-      {"x_axis": 100, "y_axis": 0, "points": "100,400 100,200 200,270 300,330 400,350 400,400", "stroke": "rgb(48, 177, 169)", "strokewidth": "2","fill": "none"},
-      {"x_axis": 100, "y_axis": 0, "points": "400,400 400,350 500,190 600,190 700,273 800,200 900,160 1000,390 1100,300 1100,400", "stroke":"rgb(171, 146, 23)" , "strokewidth":"2","fill":"none"}
-    ]);
-    d3Chart.circlesFn([
-      {"x_axis": 10, "y_axis": 10, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
-      {"x_axis": 100, "y_axis": 200, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
-      {"x_axis": 200, "y_axis": 270, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
-      {"x_axis": 300, "y_axis": 330, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
-      {"x_axis": 400, "y_axis": 350, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
-      {"x_axis": 500, "y_axis": 190, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
-      {"x_axis": 600, "y_axis": 190, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
-      {"x_axis": 700, "y_axis": 273, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
-      {"x_axis": 800, "y_axis": 200, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
-      {"x_axis": 900, "y_axis": 160, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
-      {"x_axis": 1000, "y_axis": 390, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"},
-      {"x_axis": 1100, "y_axis": 300, "radius": "5", "stroke": "#333", "strokewidth": "1", "fill": "rgb(44, 49, 51)"}
-    ]);
+    $("html, body").animate({ scrollTop: "550px" });
 
+    event.preventDefault();
 
   var serialURL = $( this ).serialize().split("&");
 
@@ -36,11 +13,7 @@ $(function(){
   information[j[0]] = j[1];
   }
 //change information
-//use race to determine svg width
   var forGraph = {};
-  forGraph.width = information.race
-
-
 //determine starting glycogen by weight
   if ( information.weight > 0 && information.weight<=100 ) { forGraph.stored = 1400}
   if ( information.weight > 100 && information.weight<=120 ) { forGraph.stored = 1500}
@@ -53,36 +26,158 @@ $(function(){
 
 //burn rate per hour
   if ( information.gender === "f"){
-  forGraph.swimburn = ((0.4472*information.hr)-(0.05741*information.weight)+(0.074*information.age)-20.4022)*60/4.184
+  forGraph.swimburn = ((0.4472*information.hr)-(0.05741*information.weight)+(0.074*information.age)-20.4022)*30/4.184
   }
   if ( information.gender === "m"){
-  forGraph.swimburn = ((0.6309*information.hr)-(0.09036*information.weight)+(0.2017*information.age)-55.0969)*60/4.184
+  forGraph.swimburn = ((0.6309*information.hr)-(0.09036*information.weight)+(0.2017*information.age)-55.0969)*30/4.184
   }
-  forGraph.runburn = (0.63*information.weight)*(60/information.runpace)
-  forGraph.bikeburn = information.weight*information.bikepace*0.256032
+  forGraph.runburn = (0.63*information.weight)*(60/information.runpace)*0.5
+  forGraph.bikeburn = information.weight*information.bikepace*0.256032*0.5
+//average bike and run for easier data
+  forGraph.groundburn = (forGraph.bikeburn+forGraph.runburn)/2.5
+  console.log(forGraph.swimburn)
+forGraph.totaltime = Math.ceil(((information.swimpace/60)*2.4)+(112/information.bikepace)+(16/information.runpace))
 
-//lengths of each portion (in time)
-if(information.race === "300px"){
-  forGraph.swimtime = 0.5/information.swimpace
-  forGraph.biketime = 12.4/information.bikepace
-  forGraph.runtime = 3.1/information.runpace
+//get points for graph
+var usefulArray=[{"x_axis": 0, "y_axis": 0, "points": "10,400 10,10 100,200 100,400", "stroke": "rgb(79, 47, 252)", "strokewidth": "2","fill": "none"},
+{"x_axis": 100, "y_axis": 0, "points": "100,400 100,200 200,270 300,330 400,350 400,400", "stroke": "rgb(48, 177, 169)", "strokewidth": "2","fill": "none"}];
+var swimData = '';
+swimData = "10,400 10,"+(400-forGraph.stored*0.19047).toString()+" "+((information.swimpace/60)*2.4*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)).toString()+" "+((information.swimpace/60)*2.4*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-225*0.19047).toString()
+
+usefulArray[0].points = swimData;
+var bikeData = ((information.swimpace/60)*2.4*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-225*0.19047).toString()+" ";
+
+var minusSwim = forGraph.totaltime - (information.swimpace/60)*2.4
+if(information.swimpace != 0){
+for (var i = 1; i <= minusSwim+1; i++) {
+  bikeData +=  (((information.swimpace/60)*2.4*71.875)+i*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-i*225*0.19047+i*(forGraph.groundburn*0.19407)).toString()+" "+(((information.swimpace/60)*2.4*71.875)+i*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-(i+1)*225*0.19047+i*(forGraph.groundburn*0.19407)).toString()+" ";
+  }
 }
-if(information.race === "500px"){
-  forGraph.swimtime = 0.93/information.swimpace
-  forGraph.biketime = 24.8/information.bikepace
-  forGraph.runtime = 6.2/information.runpace
+usefulArray[1].points = bikeData;
+
+var fancyWidth = forGraph.totaltime*78.175-10;
+
+d3Chart = {
+  container: d3.select(".chart")
+              .append("svg")
+              .attr("width", fancyWidth)
+              .attr("height", 400)
+              .style("display", "inline")
+              .style("margin-left", "40px")
+              .style("margin-top", "40px")
+              .style("background-color", "#333"),
+  triChartFn: triChart,
+  circlesFn: circles
+};
+
+
+function triChart ( newPoints ) {
+  var dataPoints = newPoints
+
+  var graph = d3Chart.container.selectAll("polyline").data(dataPoints).enter().append("polyline");
+  var graphAtts = graph.attr("x", function(d) { return d.x_axis;})
+                        .attr("y", function(d) { return d.y_axis;})
+                        .transition()
+                        .attr("points", function(d) { return d.points;})
+                        .attr("stroke", function(d) { return d.stroke;})
+                        .attr("stroke-width", function(d) { return d.strokewidth;})
+                        .attr("fill", function(d) { return d.fill;});
 }
-if(information.race === "800px"){
-  forGraph.swimtime = 1.2/information.swimpace
-  forGraph.biketime = 56/information.bikepace
-  forGraph.runtime = 13.1/information.runpace
+
+function circles (newCircles){
+  var circlePoints = newCircles
+
+  var fuel = d3Chart.container.selectAll("circle").data(circlePoints).enter().append("circle");
+  var fuelAtts = fuel.attr("cx", function(d) { return d.x_axis;})
+                        .attr("cy", function(d) { return d.y_axis;})
+                        .attr("r", "5")
+                        .attr("fill", "white");
+  var cap = d3Chart.container.selectAll("text").data(newCircles).enter().append("text");
+  var capAtts = cap.attr("x", function(d) { return d.x_axis;})
+                      .attr("y", function(d) { return d.y_axis;})
+                      .attr("class", "info")
+                      .attr("fill", "white")
+                      .text(1200 - (function(d) { return d.y_axis;}));
+  }
+
+
+
+
+//make graph
+d3Chart.triChartFn(usefulArray);
+d3Chart.circlesFn([
+  {"x_axis": 10, "y_axis": 10, "words": "Hello"},
+  {"x_axis": 100, "y_axis": 200, "words": "Hello"},
+  {"x_axis": 200, "y_axis": 270, "words": "Hello"},
+  {"x_axis": 300, "y_axis": 330, "words": "Hello"},
+  {"x_axis": 400, "y_axis": 350, "words": "Hello"},
+  {"x_axis": 500, "y_axis": 190, "words": "Hello"},
+  {"x_axis": 600, "y_axis": 190, "words": "Hello"},
+  {"x_axis": 700, "y_axis": 273, "words": "Hello"},
+  {"x_axis": 800, "y_axis": 200, "words": "Hello"},
+  {"x_axis": 900, "y_axis": 160, "words": "Hello"},
+  {"x_axis": 1000, "y_axis": 390, "words": "Hello"},
+  {"x_axis": 1100, "y_axis": 300, "words": "Hello"}
+]);
+
+
+// Fuel Choices
+var fuelArray = [];
+information.chocolate === "chocolate" ? fuelArray.push("<div class='fuel chocolate'><img src='http://ecx.images-amazon.com/images/I/61pS2DKL8wL._SY355_.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel chocolate'><img src='http://www.tennisexpress.com/prodimages/35095-DEFAULT-l.jpg'><p class='caption'>Some interesting stuff</p></div>" ) : null
+
+information.berry === "berry" ? fuelArray.push("<div class='fuel berry'><img src='http://ep.yimg.com/ay/trisports/clif-shot-bloks-44.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel berry'><img src='https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRF2j2q-Mj2-olW3e6ognHTsZo59-YCe9zOq5XZc0ZNwdNPcn-m-g'><p class='caption'>Some interesting stuff</p></div>") : null
+
+information.citrus === "citrus" ? fuelArray.push("<div class='fuel citrus'><img src='http://images.mec.ca/fluid/customers/c822/5036-528/generated/5036-528_NOC02_view1_1000x1000.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel citrus'><img src='http://www.bhphotovideo.com/images/images1000x1000/gu_energy_labs_gu_123043_gu_energy_gel_24_pack_1174362.jpg'><p class='caption'>Some interesting stuff</p></div>") : null
+
+information.coffee === "coffee" ? fuelArray.push("<div class='fuel coffee'><img src='http://www.bhphotovideo.com/images/images1000x1000/gu_energy_labs_gu_123050_gu_energy_gel_24_pack_1174367.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel coffee'><img src='https://thefeed.com/assets/Smooth-Caffeinator-400x400.jpg'><p class='caption'>Some interesting stuff</p></div>") : null
+
+information.lemonline === "lemonline" ? fuelArray.push("<div class='fuel lemonlime'><img src='http://cdn.shopify.com/s/files/1/0121/9362/products/XLLB1000_silver_web.jpg?v=1444841410'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel lemonlime'><img src='http://www.sportbeans.com/assets/images/productImages/lime_package.png'><p class='caption'>Some interesting stuff</p></div>") : null
+
+information.fruit === "fruit" ? fuelArray.push("<div class='fuel fruit'><img src='http://www.hydrationdepot.com/images/P/41vbXmHsYVL.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel fruit'><img src='http://www.gcbparts.com/assets/images/hawley/FOOD0911.jpg'><p class='caption'>Some interesting stuff</p></div>") : null
+
+information.caramel === "caramel" ? fuelArray.push("<div class='fuel caramel'><img src='http://ecx.images-amazon.com/images/I/91w4%2BttyHyL._SY355_.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel caramel'><img src='http://www.swimcyclerun.com/user/products/large/Powerbar/ProteinPlus_55g_Caramel-Vanilla-Crisp.jpg'><p class='caption'>Some interesting stuff</p></div>") : null
+
+information.nuts === "nuts" ? fuelArray.push("<div class='fuel nuts'><img src='http://cdn.campsaver.com/media/catalog/product/cache/1/image/900x900/9df78eab33525d08d6e5fb8d27136e95/m/n/mn_boneyard-1200_899_1200.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel nuts'><img src='http://www.snackwarehouse.com/common/images/products/main/snack-clif-bar-crunchy-peanut-butter.jpg'><p class='caption'>Some interesting stuff</p></div>") : null
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
-if(information.race === "1300px"){
-  forGraph.swimtime = 2.4/information.swimpace
-  forGraph.biketime = 112/information.bikepace
-  forGraph.runtime = 26.2/information.runpace
-}
-  console.log(forGraph)
+
+shuffle(fuelArray);
+var pickedFuel = fuelArray.splice(0,5);
+var joinedFuel = pickedFuel.join("");
+
+
+$(".titlerow").append("<h2>Good Fuel Choices for you:</h2>")
+$(".foodrow").append(joinedFuel);
+
+$(".fuel").on("mouseenter", function(){
+  $(this).find('.caption').css({"visibility": "visible"});
+})
+$(".fuel").on("mouseleave", function(){
+  $(this).find('.caption').css({"visibility": "hidden"});
+})
+$("text").on("mouseenter", function(){
+  $(this).css({"opacity": "1"});
+})
+$("text").on("mouseleave", function(){
+  $(this).css({"opacity": "0"});
+})
 
   })
 })
