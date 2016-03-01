@@ -39,8 +39,8 @@ $(function(){
 forGraph.totaltime = Math.ceil(((information.swimpace/60)*2.4)+(112/information.bikepace)+(16/information.runpace))
 
 //get points for graph
-var usefulArray=[{"x_axis": 0, "y_axis": 0, "points": "10,400 10,10 100,200 100,400", "stroke": "rgb(79, 47, 252)", "strokewidth": "2","fill": "none"},
-{"x_axis": 100, "y_axis": 0, "points": "100,400 100,200 200,270 300,330 400,350 400,400", "stroke": "rgb(48, 177, 169)", "strokewidth": "2","fill": "none"}];
+var usefulArray=[{"x_axis": 0, "y_axis": 0, "points": "", "stroke": "rgb(79, 47, 252)", "strokewidth": "2","fill": "none"},
+{"x_axis": 100, "y_axis": 0, "points": "", "stroke": "rgb(48, 177, 169)", "strokewidth": "2","fill": "none"}];
 var swimData = '';
 swimData = "10,400 10,"+(400-forGraph.stored*0.19047).toString()+" "+((information.swimpace/60)*2.4*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)).toString()+" "+((information.swimpace/60)*2.4*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-225*0.19047).toString()
 
@@ -53,9 +53,29 @@ for (var i = 1; i <= minusSwim+1; i++) {
   bikeData +=  (((information.swimpace/60)*2.4*71.875)+i*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-i*225*0.19047+i*(forGraph.groundburn*0.19407)).toString()+" "+(((information.swimpace/60)*2.4*71.875)+i*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-(i+1)*225*0.19047+i*(forGraph.groundburn*0.19407)).toString()+" ";
   }
 }
+var fancyWidth = forGraph.totaltime*78.175;
+bikeData += fancyWidth+","+400
 usefulArray[1].points = bikeData;
 
-var fancyWidth = forGraph.totaltime*78.175-10;
+var swimDataP = swimData.split(' ').join(',');
+var swimDataP = swimDataP.split(',')
+
+var bikeDataP = bikeData.split(' ').join(',');
+var bikeDataP = bikeDataP.split(',')
+
+console.log(bikeDataP[5])
+
+var inputCircles = [
+  {"x_axis": swimDataP[2], "y_axis": swimDataP[3], "words": "Hello"},
+  {"x_axis": swimDataP[4], "y_axis": swimDataP[5], "words": "Hello"},
+  {"x_axis": swimDataP[6], "y_axis": swimDataP[7], "words": "Hello"},
+]
+
+for (var i = 1; i <= bikeDataP.length/2; i++) {
+  inputCircles[i+2] = {"x_axis": bikeDataP[i*2], "y_axis": bikeDataP[i*2+1], "words": "Hello"}
+}
+
+console.log(swimDataP)
 
 d3Chart = {
   container: d3.select(".chart")
@@ -105,20 +125,7 @@ function circles (newCircles){
 
 //make graph
 d3Chart.triChartFn(usefulArray);
-d3Chart.circlesFn([
-  {"x_axis": 10, "y_axis": 10, "words": "Hello"},
-  {"x_axis": 100, "y_axis": 200, "words": "Hello"},
-  {"x_axis": 200, "y_axis": 270, "words": "Hello"},
-  {"x_axis": 300, "y_axis": 330, "words": "Hello"},
-  {"x_axis": 400, "y_axis": 350, "words": "Hello"},
-  {"x_axis": 500, "y_axis": 190, "words": "Hello"},
-  {"x_axis": 600, "y_axis": 190, "words": "Hello"},
-  {"x_axis": 700, "y_axis": 273, "words": "Hello"},
-  {"x_axis": 800, "y_axis": 200, "words": "Hello"},
-  {"x_axis": 900, "y_axis": 160, "words": "Hello"},
-  {"x_axis": 1000, "y_axis": 390, "words": "Hello"},
-  {"x_axis": 1100, "y_axis": 300, "words": "Hello"}
-]);
+d3Chart.circlesFn(inputCircles);
 
 
 // Fuel Choices
