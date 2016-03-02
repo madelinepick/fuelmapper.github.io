@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="form.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
   <script type="text/javascript" src="main.js"></script>
-  <!-- <script type="text/javascript" src="graph.js"></script> -->
   <script src="d3.min.js" charset="utf-8"></script>
 </head>
 <body>
@@ -20,37 +19,40 @@
       <div class="row">
         <div class="basicbox">
           <label for="swimpace">Swim Pace</label><br>
-          <input name="swimpace" type="text" placeholder="30 min/mi or 30 min/km">
+          <input name="swimpace" type="text" placeholder="min/mi" required>
         </div>
         <div class="basicbox">
           <label for="bikepace">Bike Pace</label><br>
-          <input name="bikepace" type="text" placeholder="mph">
+          <input name="bikepace" type="text" placeholder="mph" required>
         </div>
         <div class="basicbox">
           <label for="runpace">Run Pace</label><br>
-          <input name="runpace" type="text" placeholder="7 mph">
+          <input name="runpace" type="text" placeholder="mph" required>
         </div>
         <div class="basicbox">
-          <label for="hr">HR at 75%</label><br>
-          <input name="hr" type="text" placeholder="155">
+          <label for="hr">HR at 75% Effort</label><br>
+          <input name="hr" type="text" placeholder="155" required>
         </div>
         <div class="basicbox">
           <label for="weight">Weight</label><br>
-          <input name="weight" type="text" placeholder="150 lbs or 65 kg">
+          <input name="weight" type="text" placeholder="Lbs" required>
         </div>
         <div class="basicbox">
           <label for="age">Age</label><br>
-          <input name="age" type="text">
+          <input name="age" type="text" required>
         </div>
         <div class="basicbox">
           <label for="gender">Gender</label><br>
-          <input name="gender" value="f" type="radio">
+          <input name="gender" value="f" type="radio" required>
           <label for="gender">Female</label><br>
-          <input name="gender" value="m" type="radio">
+          <input name="gender" value="m" type="radio" required>
           <label for="gender">Male</label><br>
+          <input name="gender" value="o" type="radio" required>
+          <label for="gender">Other</label><br>
         </div>
       </div>
       <h3>Flavors</h3>
+      <h4>Choose at least three</h4>
       <div class="row">
         <div class="basicbox">
           <input name="chocolate" value="chocolate" type="radio">
@@ -80,8 +82,13 @@
       <input type="submit" value="create your plan" id="submit">
     </fieldset>
   </form>
-  <div class="chart"></div>
-  <div class="titlerow"></div>
-  <div class="foodrow"></div>
+  <section class="containing">
+    <div class="chart"></div>
+    <div class="chartInfo"></div>
+  </section>
+  <section class="containing white">
+    <div class="titlerow"></div>
+    <div class="foodrow"></div>
+  </section>
 </body>
 </html>

@@ -31,6 +31,9 @@ $(function(){
   if ( information.gender === "m"){
   forGraph.swimburn = ((0.6309*information.hr)-(0.09036*information.weight)+(0.2017*information.age)-55.0969)*30/4.184
   }
+  if ( information.gender === "o"){
+  forGraph.swimburn = ((0.6309*information.hr)-(0.09036*information.weight)+(0.2017*information.age)-55.0969)*30/4.184
+  }
   forGraph.runburn = (0.63*information.weight)*(60/information.runpace)*0.5
   forGraph.bikeburn = information.weight*information.bikepace*0.256032*0.5
 //average bike and run for easier data
@@ -40,21 +43,25 @@ forGraph.totaltime = Math.ceil(((information.swimpace/60)*2.4)+(112/information.
 
 //get points for graph
 var usefulArray=[{"x_axis": 0, "y_axis": 0, "points": "", "stroke": "rgb(79, 47, 252)", "strokewidth": "2","fill": "none"},
-{"x_axis": 100, "y_axis": 0, "points": "", "stroke": "rgb(48, 177, 169)", "strokewidth": "2","fill": "none"}];
+{"x_axis": 0, "y_axis": 0, "points": "", "stroke": "rgb(48, 177, 169)", "strokewidth": "2","fill": "none"}];
 var swimData = '';
-swimData = "10,400 10,"+(400-forGraph.stored*0.19047).toString()+" "+((information.swimpace/60)*2.4*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)).toString()+" "+((information.swimpace/60)*2.4*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-225*0.19047).toString()
+swimData = "0,"+(400-forGraph.stored*0.19047).toString()+" "+((information.swimpace/60)*2.4*55.88).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)).toString()+" "+((information.swimpace/60)*2.4*55.88).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-225*0.19047).toString()
 
 usefulArray[0].points = swimData;
-var bikeData = ((information.swimpace/60)*2.4*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-225*0.19047).toString()+" ";
+var bikeData = ((information.swimpace/60)*2.4*55.88).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-225*0.19047).toString()+" ";
 
 var minusSwim = forGraph.totaltime - (information.swimpace/60)*2.4
 if(information.swimpace != 0){
 for (var i = 1; i <= minusSwim+1; i++) {
-  bikeData +=  (((information.swimpace/60)*2.4*71.875)+i*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-i*225*0.19047+i*(forGraph.groundburn*0.19407)).toString()+" "+(((information.swimpace/60)*2.4*71.875)+i*71.875).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-(i+1)*225*0.19047+i*(forGraph.groundburn*0.19407)).toString()+" ";
+  if(i < minusSwim+1){
+  bikeData +=  (((information.swimpace/60)*2.4*55.88)+i*55.88).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-i*225*0.19047+i*(forGraph.groundburn*0.19407)).toString()+" "+(((information.swimpace/60)*2.4*55.88)+i*55.88).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-(i+1)*225*0.19047+i*(forGraph.groundburn*0.19407)).toString()+" ";
+    } else{
+  bikeData +=  (((information.swimpace/60)*2.4*55.88)+i*55.88).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-i*225*0.19047+i*(forGraph.groundburn*0.19407)).toString()
+    }
   }
 }
-var fancyWidth = forGraph.totaltime*78.175;
-bikeData += fancyWidth+","+400
+var fancyWidth = forGraph.totaltime*55.88;
+// bikeData += fancyWidth+","+400
 usefulArray[1].points = bikeData;
 
 var swimDataP = swimData.split(' ').join(',');
@@ -83,9 +90,8 @@ d3Chart = {
               .attr("width", fancyWidth)
               .attr("height", 400)
               .style("display", "inline")
-              .style("margin-left", "40px")
-              .style("margin-top", "40px")
-              .style("background-color", "#333"),
+              .style("border-bottom", "1px solid white")
+              .style("border-left", "1px solid white"),
   triChartFn: triChart,
   circlesFn: circles
 };
@@ -99,9 +105,9 @@ function triChart ( newPoints ) {
                         .attr("y", function(d) { return d.y_axis;})
                         .transition()
                         .attr("points", function(d) { return d.points;})
-                        .attr("stroke", function(d) { return d.stroke;})
+                        .attr("stroke", "white")
                         .attr("stroke-width", function(d) { return d.strokewidth;})
-                        .attr("fill", function(d) { return d.fill;});
+                        .attr("fill", "none")
 }
 
 function circles (newCircles){
@@ -127,6 +133,24 @@ function circles (newCircles){
 d3Chart.triChartFn(usefulArray);
 d3Chart.circlesFn(inputCircles);
 
+//chart information
+$(".chartInfo").append('<h4>What is this graph saying?</h4><ul><h5 class="title1">Glycogen Calories</h5><li class="list1">First off, this graph is only showing immediately available glycogen calories, not calories stored in fat or muscle. Your body fuels endurance races from both sources.</li><h5 class="title2">Stored glycogen</h5><li class="list2">You will start off with an amount of stored glycogen based on your weight. Your stored glycogen is X</li><h5 class="title3">Burn rate</h5><li class="list3">Each dip in the graph represent the glycogen calories you burn per hour, roughly half of your total calories burned. You burn x while swimming and x while biking and running.</li><h5 class="title4">Fueling</h5><li class="list4">For our model, we used a standard 250 cals/hr fueling plan.</li><h5 class="title5">My line goes off the graph!</h5><li class="list5">If your line dips below the bottom of the chart, this means your body would be relying on fat calories to finish the race since 250 cals per hour was not able to replace you loss. Our advice is to up your calorie per hour intake (more than 250) if you see this happening in the graph.</li></ul>')
+
+$( ".title1" ).on('click', function(){
+  $(".list1").slideToggle( "slow")
+});
+$( ".title2" ).on('click', function(){
+  $(".list2").slideToggle( "slow")
+});
+$( ".title3" ).on('click', function(){
+  $(".list3").slideToggle( "slow")
+});
+$( ".title4" ).on('click', function(){
+  $(".list4").slideToggle( "slow")
+});
+$( ".title5" ).on('click', function(){
+  $(".list5").slideToggle( "slow")
+});
 
 // Fuel Choices
 var fuelArray = [];
@@ -185,6 +209,7 @@ $("text").on("mouseenter", function(){
 $("text").on("mouseleave", function(){
   $(this).css({"opacity": "0"});
 })
+
 
   })
 })

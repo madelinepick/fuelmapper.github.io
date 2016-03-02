@@ -8,8 +8,9 @@ $(function(){
                 .style("display", "inline")
                 .style("margin-left", "40px")
                 .style("margin-top", "40px")
-                .style("background-color", "#333"),
-    triChartFn: triChart, 
+                .style("border-bottom", "1px solid white")
+                .style("border-left", "1px solid white"),
+    triChartFn: triChart,
     circlesFn: circles
   };
 
