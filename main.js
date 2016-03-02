@@ -1,8 +1,10 @@
 $(function(){
 
   $( "#fuelForm" ).on("submit", function(){
-    $("html, body").animate({ scrollTop: "550px" });
-
+    $("html, body").animate({ scrollTop: "600px" });
+    $(".containing").css({"display": "flex"});
+    $(".white").show();
+    $("button").css({"display": "inline"});
     event.preventDefault();
 
   var serialURL = $( this ).serialize().split("&");
@@ -134,7 +136,7 @@ d3Chart.triChartFn(usefulArray);
 d3Chart.circlesFn(inputCircles);
 
 //chart information
-$(".chartInfo").append('<h4>What is this graph saying?</h4><ul><h5 class="title1">Glycogen Calories</h5><li class="list1">First off, this graph is only showing immediately available glycogen calories, not calories stored in fat or muscle. Your body fuels endurance races from both sources.</li><h5 class="title2">Stored glycogen</h5><li class="list2">You will start off with an amount of stored glycogen based on your weight. Your stored glycogen is X</li><h5 class="title3">Burn rate</h5><li class="list3">Each dip in the graph represent the glycogen calories you burn per hour, roughly half of your total calories burned. You burn x while swimming and x while biking and running.</li><h5 class="title4">Fueling</h5><li class="list4">For our model, we used a standard 250 cals/hr fueling plan.</li><h5 class="title5">My line goes off the graph!</h5><li class="list5">If your line dips below the bottom of the chart, this means your body would be relying on fat calories to finish the race since 250 cals per hour was not able to replace you loss. Our advice is to up your calorie per hour intake (more than 250) if you see this happening in the graph.</li></ul>')
+$(".chartInfo").append('<h3 class="infostyle">What is this graph saying?</h3><ul><h5 class="title1">Glycogen Calories</h5><li class="list1">First off, this graph is only showing immediately available glycogen calories, not calories stored in fat or muscle. Your body fuels endurance races from both sources.</li><h5 class="title2">Stored glycogen</h5><li class="list2">You will start off with an amount of stored glycogen based on your weight. Your stored glycogen is X</li><h5 class="title3">Burn rate</h5><li class="list3">Each dip in the graph represent the glycogen calories you burn per hour, roughly half of your total calories burned. You burn x while swimming and x while biking and running.</li><h5 class="title4">Fueling</h5><li class="list4">For our model, we used a standard 250 cals/hr fueling plan.</li><h5 class="title5">My line goes off the graph!</h5><li class="list5">If your line dips below the bottom of the chart, this means your body would be relying on fat calories to finish the race since 250 cals per hour was not able to replace you loss. Our advice is to up your calorie per hour intake (more than 250) if you see this happening in the graph.</li></ul>')
 
 $( ".title1" ).on('click', function(){
   $(".list1").slideToggle( "slow")
@@ -154,21 +156,21 @@ $( ".title5" ).on('click', function(){
 
 // Fuel Choices
 var fuelArray = [];
-information.chocolate === "chocolate" ? fuelArray.push("<div class='fuel chocolate'><img src='http://ecx.images-amazon.com/images/I/61pS2DKL8wL._SY355_.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel chocolate'><img src='http://www.tennisexpress.com/prodimages/35095-DEFAULT-l.jpg'><p class='caption'>Some interesting stuff</p></div>" ) : null
+information.chocolate === "chocolate" ? fuelArray.push("<div class='fuel chocolate'><img src='http://ecx.images-amazon.com/images/I/61pS2DKL8wL._SY355_.jpg'><p class='caption'>160 calories<br>Organic<br>Energy from Honey</p></div>", "<div class='fuel chocolate'><img src='http://www.tennisexpress.com/prodimages/35095-DEFAULT-l.jpg'><p class='caption'>250 calories<br>10g protein<br>Organic oats</p></div>" ) : null
 
-information.berry === "berry" ? fuelArray.push("<div class='fuel berry'><img src='http://ep.yimg.com/ay/trisports/clif-shot-bloks-44.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel berry'><img src='https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRF2j2q-Mj2-olW3e6ognHTsZo59-YCe9zOq5XZc0ZNwdNPcn-m-g'><p class='caption'>Some interesting stuff</p></div>") : null
+information.berry === "berry" ? fuelArray.push("<div class='fuel berry'><img src='http://ep.yimg.com/ay/trisports/clif-shot-bloks-44.jpg'><p class='caption'>200 calories<br>95% organic<br>50mg caffeine</p></div>", "<div class='fuel berry'><img src='https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRF2j2q-Mj2-olW3e6ognHTsZo59-YCe9zOq5XZc0ZNwdNPcn-m-g'><p class='caption'>35 calores per 8 oz.<br>160 mg sodium<br>Maximize fliud absorption</p></div>") : null
 
-information.citrus === "citrus" ? fuelArray.push("<div class='fuel citrus'><img src='http://images.mec.ca/fluid/customers/c822/5036-528/generated/5036-528_NOC02_view1_1000x1000.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel citrus'><img src='http://www.bhphotovideo.com/images/images1000x1000/gu_energy_labs_gu_123043_gu_energy_gel_24_pack_1174362.jpg'><p class='caption'>Some interesting stuff</p></div>") : null
+information.citrus === "citrus" ? fuelArray.push("<div class='fuel citrus'><img src='http://images.mec.ca/fluid/customers/c822/5036-528/generated/5036-528_NOC02_view1_1000x1000.jpg'><p class='caption'>160 calories<br>Organic<br>Energy from Honey</p></div>", "<div class='fuel citrus'><img src='http://www.bhphotovideo.com/images/images1000x1000/gu_energy_labs_gu_123043_gu_energy_gel_24_pack_1174362.jpg'><p class='caption'>100 calories<br>55mg sodium<br>20mg caffeine</p></div>") : null
 
-information.coffee === "coffee" ? fuelArray.push("<div class='fuel coffee'><img src='http://www.bhphotovideo.com/images/images1000x1000/gu_energy_labs_gu_123050_gu_energy_gel_24_pack_1174367.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel coffee'><img src='https://thefeed.com/assets/Smooth-Caffeinator-400x400.jpg'><p class='caption'>Some interesting stuff</p></div>") : null
+information.coffee === "coffee" ? fuelArray.push("<div class='fuel coffee'><img src='http://www.bhphotovideo.com/images/images1000x1000/gu_energy_labs_gu_123050_gu_energy_gel_24_pack_1174367.jpg'><p class='caption'>100 calories<br>60mg sodium<br>40mg caffeine</p></div>", "<div class='fuel coffee'><img src='https://thefeed.com/assets/Smooth-Caffeinator-400x400.jpg'><p class='caption'>200 calories<br>7g protein<br>Energy from dates</p></div>") : null
 
-information.lemonline === "lemonline" ? fuelArray.push("<div class='fuel lemonlime'><img src='http://cdn.shopify.com/s/files/1/0121/9362/products/XLLB1000_silver_web.jpg?v=1444841410'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel lemonlime'><img src='http://www.sportbeans.com/assets/images/productImages/lime_package.png'><p class='caption'>Some interesting stuff</p></div>") : null
+information.lemonline === "lemonline" ? fuelArray.push("<div class='fuel lemonlime'><img src='http://cdn.shopify.com/s/files/1/0121/9362/products/XLLB1000_silver_web.jpg?v=1444841410'><p class='caption'>80 calories per 16oz.<br>360mg sodium<br>Only real fruit flavor</p></div>", "<div class='fuel lemonlime'><img src='http://www.sportbeans.com/assets/images/productImages/lime_package.png'><p class='caption'>100 calories<br>Vitamins C and B<br>Natural flavors</p></div>") : null
 
-information.fruit === "fruit" ? fuelArray.push("<div class='fuel fruit'><img src='http://www.hydrationdepot.com/images/P/41vbXmHsYVL.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel fruit'><img src='http://www.gcbparts.com/assets/images/hawley/FOOD0911.jpg'><p class='caption'>Some interesting stuff</p></div>") : null
+information.fruit === "fruit" ? fuelArray.push("<div class='fuel fruit'><img src='http://scene7.targetimg1.com/is/image/Target/14652295?wid=480&hei=480'><p class='caption'>100 calories<br>24g carbohydrates<br>20% vitamin B6</p></div>", "<div class='fuel fruit'><img src='http://www.gcbparts.com/assets/images/hawley/FOOD0911.jpg'><p class='caption'>10 calories<br>Stay hydrated<br>Not for fueling</p></div>") : null
 
-information.caramel === "caramel" ? fuelArray.push("<div class='fuel caramel'><img src='http://ecx.images-amazon.com/images/I/91w4%2BttyHyL._SY355_.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel caramel'><img src='http://www.swimcyclerun.com/user/products/large/Powerbar/ProteinPlus_55g_Caramel-Vanilla-Crisp.jpg'><p class='caption'>Some interesting stuff</p></div>") : null
+information.caramel === "caramel" ? fuelArray.push("<div class='fuel caramel'><img src='http://ecx.images-amazon.com/images/I/91w4%2BttyHyL._SY355_.jpg'><p class='caption'>160 calories<br>95% organic<br>Energy from honey</p></div>", "<div class='fuel caramel'><img src='http://www.swimcyclerun.com/user/products/large/Powerbar/ProteinPlus_55g_Caramel-Vanilla-Crisp.jpg'><p class='caption'>190 calories<br>17.3g protein<br>protein from casein, whey, and soy</p></div>") : null
 
-information.nuts === "nuts" ? fuelArray.push("<div class='fuel nuts'><img src='http://cdn.campsaver.com/media/catalog/product/cache/1/image/900x900/9df78eab33525d08d6e5fb8d27136e95/m/n/mn_boneyard-1200_899_1200.jpg'><p class='caption'>Some interesting stuff</p></div>", "<div class='fuel nuts'><img src='http://www.snackwarehouse.com/common/images/products/main/snack-clif-bar-crunchy-peanut-butter.jpg'><p class='caption'>Some interesting stuff</p></div>") : null
+information.nuts === "nuts" ? fuelArray.push("<div class='fuel nuts'><img src='http://cdn.campsaver.com/media/catalog/product/cache/1/image/900x900/9df78eab33525d08d6e5fb8d27136e95/m/n/mn_boneyard-1200_899_1200.jpg'><p class='caption'>200 calories<br>Gluten and GMO free<br>Energy from dates</p></div>", "<div class='fuel nuts'><img src='http://www.snackwarehouse.com/common/images/products/main/snack-clif-bar-crunchy-peanut-butter.jpg'><p class='caption'>260 calories<br>11g protein<br>Organic oats</p></div>") : null
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;

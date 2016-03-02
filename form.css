@@ -23,10 +23,14 @@ h4{
   font-weight: 300;
 
 }
+h5{
+  font-weight: 300;
+  text-transform: uppercase;
+}
 form{
   margin-left: 40px;
   margin-right: 40px;
-  background-color: #5A99A3;
+  background-color: #91CBC5;
 }
 fieldset{
   border: none;
@@ -93,31 +97,55 @@ img{
   text-align: center;
 }
 .chart{
-  flex: 0 0 70%;
+  flex: 0 0 73%;
 }
 .chartInfo{
   height: 400px;
-  flex: 0 0 30%
+  flex: 0 0 27%;
+  background-color: white;
 }
 .containing{
-  display: flex;
   margin-left: 40px;
   margin-right: 40px;
-  margin-top: 40px;
+  margin-top: 120px;
   flex-direction: row;
+  display: none;
+  height: 440px;
 }
 ul{
-  padding-left: 0px;
+  padding-left: 10px;
 }
 li{
   display: none;
   font-size: 14px;
   text-decoration: none;
-  background-color: #77E8DA;
+  background-color: #91CBC5;
+  padding: 5px;
+  margin-right: 10px;
 }
 .title1 .title2 .title3 .title4 .title5 {
 
 }
 .white {
   background: white;
+  margin: 40px;
+  padding-top: 20px;
+  display: none;
+}
+.infostyle{
+  padding-left: 10px;
+}
+button{
+  width:150px;
+  height: 50px;
+  border: 1px solid #a2a2a2;
+  padding: 0px;
+  font-family: "Lato";
+  font-weight: 200;
+  text-transform: uppercase;
+  margin-top: 15px;
+  background-color: white;
+  border-radius: 4px;
+  margin-left: 50px;
+  display: none;
 }
