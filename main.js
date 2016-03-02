@@ -125,7 +125,7 @@ function circles (newCircles){
                       .attr("y", function(d) { return d.y_axis;})
                       .attr("class", "info")
                       .attr("fill", "white")
-                      .text(1200 - (function(d) { return d.y_axis;}));
+                      .text(function(d) { return 2000 - Number(d.y_axis);});
   }
 
 
@@ -136,7 +136,10 @@ d3Chart.triChartFn(usefulArray);
 d3Chart.circlesFn(inputCircles);
 
 //chart information
-$(".chartInfo").append('<h3 class="infostyle">What is this graph saying?</h3><ul><h5 class="title1">Glycogen Calories</h5><li class="list1">First off, this graph is only showing immediately available glycogen calories, not calories stored in fat or muscle. Your body fuels endurance races from both sources.</li><h5 class="title2">Stored glycogen</h5><li class="list2">You will start off with an amount of stored glycogen based on your weight. Your stored glycogen is X</li><h5 class="title3">Burn rate</h5><li class="list3">Each dip in the graph represent the glycogen calories you burn per hour, roughly half of your total calories burned. You burn x while swimming and x while biking and running.</li><h5 class="title4">Fueling</h5><li class="list4">For our model, we used a standard 250 cals/hr fueling plan.</li><h5 class="title5">My line goes off the graph!</h5><li class="list5">If your line dips below the bottom of the chart, this means your body would be relying on fat calories to finish the race since 250 cals per hour was not able to replace you loss. Our advice is to up your calorie per hour intake (more than 250) if you see this happening in the graph.</li></ul>')
+
+var chartHTML = '<h3 class="infostyle">What is this graph saying?</h3><ul><h5 class="title1">Carbohydrate Calories</h5><li class="list1">First off, this graph is only showing immediately available carbohydrate calories, not calories stored as fat. Your body fuels endurance races from both sources, but you can continue to take in usable carbohydrates during a race, while you rely on existing fat sources.</li><h5 class="title2">Stored glycogen</h5><li class="list2">You will start off with an amount of stored glycogen based on your weight. Your stored glycogen is '+forGraph.stored +' calories.</li><h5 class="title3">Burn rate</h5><li class="list3">Each dip in the graph represent the carbohydrate calories you burn per hour, roughly half of your total calories burned. You burn '+Math.round(forGraph.swimburn*2)+' calories per hour while swimming, '+Math.round(forGraph.runburn*2)+' calories per hour while running and '+Math.round(forGraph.bikeburn*2)+' calories per hour while biking.</li><h5 class="title4">Fueling</h5><li class="list4">For our model, we used a standard 250 cals/hr fueling plan, which is why the graph shows a flat increase every hour.</li><h5 class="title5">My line goes off the chart!</h5><li class="list5">If your line dips below the bottom of the chart, this means your body would be relying on fat calories to finish the race since 250 cals per hour was not able to replace what you burned. Our advice is to up your calorie per hour intake (more than 250) if you see this happening in the graph.</li></ul>';
+
+$(".chartInfo").append(chartHTML)
 
 $( ".title1" ).on('click', function(){
   $(".list1").slideToggle( "slow")
