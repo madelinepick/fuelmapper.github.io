@@ -135,23 +135,36 @@ d3Chart.circlesFn(inputCircles);
 
 //chart information
 
-var chartHTML = '<h3 class="infostyle">What is this graph saying?</h3><ul><h5 class="title1">Carbohydrate Calories&nbsp;<i class="fa fa-angle-down fa-2x"></i></h5><li class="list1">First off, this graph is only showing immediately available carbohydrate calories, not calories stored as fat. Your body fuels endurance races from both sources, but you can continue to take in usable carbohydrates during a race, while you rely on existing fat sources.</li><h5 class="title2">Stored glycogen</h5><li class="list2">You will start off with an amount of stored glycogen based on your weight. Your stored glycogen is '+forGraph.stored +' calories.</li><h5 class="title3">Burn rate</h5><li class="list3">Each dip in the graph represent the carbohydrate calories you burn per hour, roughly half of your total calories burned. You burn '+Math.round(forGraph.swimburn*2)+' calories per hour while swimming, '+Math.round(forGraph.runburn*2)+' calories per hour while running and '+Math.round(forGraph.bikeburn*2)+' calories per hour while biking.</li><h5 class="title4">Fueling</h5><li class="list4">For our model, we used a standard 250 cals/hr fueling plan, which is why the graph shows a flat increase every hour.</li><h5 class="title5">My line goes off the chart!</h5><li class="list5">If your line dips below the bottom of the chart, this means your body would be relying on fat calories to finish the race since 250 cals per hour was not able to replace what you burned. Our advice is to up your calorie per hour intake (more than 250) if you see this happening in the graph.</li></ul>';
+var chartHTML = '<h3 class="infostyle">What is this graph saying?</h3><ul><h5 class="title1">Carbohydrate Calories&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list1">First off, this graph is only showing immediately available carbohydrate calories, not calories stored as fat. Your body fuels endurance races from both sources, but you can continue to take in usable carbohydrates during a race, while you rely on existing fat sources.</li><h5 class="title2">Stored glycogen&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list2">You will start off with an amount of stored glycogen based on your weight. Your stored glycogen is '+forGraph.stored +' calories.</li><h5 class="title3">Burn rate&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list3">Each dip in the graph represent the carbohydrate calories you burn per hour, roughly half of your total calories burned. You burn '+Math.round(forGraph.swimburn*2)+' calories per hour while swimming, '+Math.round(forGraph.runburn*2)+' calories per hour while running and '+Math.round(forGraph.bikeburn*2)+' calories per hour while biking.</li><h5 class="title4">Fueling&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list4">For our model, we used a standard 250 cals/hr fueling plan, which is why the graph shows a flat increase every hour.</li><h5 class="title5">My line goes off the chart!&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list5">If your line dips below the bottom of the chart, this means your body would be relying on fat calories to finish the race since 250 cals per hour was not able to replace what you burned. Our advice is to up your calorie per hour intake (more than 250) if you see this happening in the graph.</li></ul>';
 
 $(".chartInfo").append(chartHTML)
 
+function closeOpen(){
+  $(".list1").css({"display": "none"});
+  $(".list2").css({"display": "none"});
+  $(".list3").css({"display": "none"});
+  $(".list4").css({"display": "none"});
+  $(".list5").css({"display": "none"});
+}
+
 $( ".title1" ).on('click', function(){
+  closeOpen();
   $(".list1").slideToggle( "slow")
 });
 $( ".title2" ).on('click', function(){
+  closeOpen();
   $(".list2").slideToggle( "slow")
 });
 $( ".title3" ).on('click', function(){
+  closeOpen();
   $(".list3").slideToggle( "slow")
 });
 $( ".title4" ).on('click', function(){
+  closeOpen();
   $(".list4").slideToggle( "slow")
 });
 $( ".title5" ).on('click', function(){
+  closeOpen();
   $(".list5").slideToggle( "slow")
 });
 
@@ -165,7 +178,7 @@ information.citrus === "citrus" ? fuelArray.push("<div class='fuel citrus'><img 
 
 information.coffee === "coffee" ? fuelArray.push("<div class='fuel coffee'><img src='http://www.bhphotovideo.com/images/images1000x1000/gu_energy_labs_gu_123050_gu_energy_gel_24_pack_1174367.jpg'><p class='caption'>100 calories<br>60mg sodium<br>40mg caffeine</p></div>", "<div class='fuel coffee'><img src='https://thefeed.com/assets/Smooth-Caffeinator-400x400.jpg'><p class='caption'>200 calories<br>7g protein<br>Energy from dates</p></div>") : null
 
-information.lemonline === "lemonlime" ? fuelArray.push("<div class='fuel lemonlime'><img src='http://cdn.shopify.com/s/files/1/0121/9362/products/XLLB1000_silver_web.jpg?v=1444841410'><p class='caption'>80 calories per 16oz.<br>360mg sodium<br>Only real fruit flavor</p></div>", "<div class='fuel lemonlime'><img src='http://www.sportbeans.com/assets/images/productImages/lime_package.png'><p class='caption'>100 calories<br>Vitamins C and B<br>Natural flavors</p></div>") : null
+information.lemonlime === "lemon" ? fuelArray.push("<div class='fuel lemonlime'><img src='http://cdn.shopify.com/s/files/1/0121/9362/products/XLLB1000_silver_web.jpg?v=1444841410'><p class='caption'>80 calories per 16oz.<br>360mg sodium<br>Only real fruit flavor</p></div>", "<div class='fuel lemonlime'><img src='http://www.sportbeans.com/assets/images/productImages/lime_package.png'><p class='caption'>100 calories<br>Vitamins C and B<br>Natural flavors</p></div>") : null
 
 information.fruit === "fruit" ? fuelArray.push("<div class='fuel fruit'><img src='http://scene7.targetimg1.com/is/image/Target/14652295?wid=480&hei=480'><p class='caption'>100 calories<br>24g carbohydrates<br>20% vitamin B6</p></div>", "<div class='fuel fruit'><img src='http://www.gcbparts.com/assets/images/hawley/FOOD0911.jpg'><p class='caption'>10 calories<br>Stay hydrated<br>Not for fueling</p></div>") : null
 

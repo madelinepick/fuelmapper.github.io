@@ -51,7 +51,7 @@ h1 {
 
 h3 {
   text-transform: uppercase;
-  padding-top: 15px; }
+  padding-top: 10px; }
 
 h4 {
   margin: 0px 0px 10px 0px; }
@@ -232,3 +232,11 @@ input[type='number'] {
   text-align: center;
   margin-left: 0px;
   text-transform: none; }
+
+.inline {
+  display: inline;
+  margin: 0px;
+  padding: 0px; }
+
+h5.inline {
+  margin-left: 10px; }
