@@ -1,0 +1,20 @@
+@mixin row($display,$margint){
+  .row{
+    display: $display;
+    margin-top: $margint;
+  }
+}
+@mixin caption($visibility,$textalign){
+.caption{
+  visibility: $visibility;
+  text-align: $textalign;
+  }
+}
+@mixin toptext($x, $y, $z, $q){
+  .toptext{
+  text-align: $x;
+  font-weight: $y;
+  font-size: $z;
+  text-transform: $q;
+  }
+}

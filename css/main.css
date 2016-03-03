@@ -1,0 +1,140 @@
+.row {
+  display: flex;
+  margin-top: 15px; }
+
+.caption {
+  visibility: hidden;
+  text-align: center; }
+
+.toptext {
+  text-align: left;
+  font-weight: 400;
+  font-size: 20px;
+  text-transform: uppercase; }
+
+h1, h2 {
+  font-weight: 300;
+  margin-left: 40px;
+  text-align: center; }
+
+h3, h4 {
+  font-weight: 300; }
+
+form, .foodrow, .titlerow, .containing, .toptext {
+  margin-left: 40px; }
+
+.basicbox, .food {
+  flex: 1; }
+
+li, button, .containing, .white, .top {
+  display: none; }
+
+button, #submit {
+  width: 150px;
+  height: 50px;
+  border: 1px solid #a2a2a2;
+  padding: 0px;
+  font-family: "Lato";
+  font-weight: 200;
+  text-transform: uppercase;
+  margin-top: 15px;
+  background-color: white;
+  border-radius: 4px; }
+
+body {
+  font-family: "Lato", sans-serif;
+  background-color: #5A99A3; }
+
+h1 {
+  text-transform: uppercase; }
+
+h3 {
+  text-transform: uppercase;
+  padding-top: 15px; }
+
+h4 {
+  margin: 0px 0px 10px 0px; }
+
+h5 {
+  font-weight: 300;
+  text-transform: uppercase; }
+
+form {
+  margin-right: 40px;
+  background-color: #91CBC5; }
+
+fieldset {
+  border: none; }
+
+text {
+  opacity: 0;
+  padding: 20px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 400;
+  word-wrap: break-word;
+  width: 20px; }
+
+img {
+  height: 150px;
+  margin: 15px; }
+
+ul {
+  padding-left: 10px; }
+
+li {
+  font-size: 14px;
+  text-decoration: none;
+  background-color: #91CBC5;
+  padding: 5px;
+  margin-right: 10px; }
+
+button {
+  margin-left: 50px; }
+
+.basicbox {
+  display: inline-block; }
+
+.basicbox label {
+  font-size: 12px; }
+
+.offset {
+  padding-top: 5px; }
+
+.foodrow {
+  display: flex;
+  margin-right: 40px;
+  justify-content: center; }
+
+.food {
+  padding: 30px;
+  justify-content: center; }
+
+.titlerow {
+  margin-top: 40px; }
+
+.info {
+  text-align: center; }
+
+.chartInfo {
+  height: 400px;
+  flex: 0 0 27%;
+  background-color: white; }
+  
+
+.containing {
+  margin-right: 40px;
+  margin-top: 20px;
+  flex-direction: row;
+  height: 440px; }
+
+.white {
+  background: white;
+  margin: 40px;
+  padding-top: 20px; }
+
+.infostyle {
+  padding-left: 10px; }
+
+.top {
+  margin-top: 60px; }

@@ -1,4 +1,4 @@
-body{
+/*body{
   font-family: "Lato", sans-serif;
   background-color: #5A99A3;
   }
@@ -38,22 +38,24 @@ fieldset{
 text{
   opacity: 0;
   padding: 20px;
-  font-size: 30px;
+  font-size: 14px;
   text-transform: uppercase;
-  font-weight: 200;
-}
-.row{
+  font-weight: 400;
+  word-wrap: break-word;;
+  width: 20px;
+}*/
+/*.row{
   display: flex;
   margin-top: 15px;
-}
-.basicbox{
+}*/
+/*.basicbox{
   display: inline-block;
   flex: 1;
 }
 
 .basicbox label {
   font-size: 12px;
-}
+}*/
 .offset {
   padding-top: 5px;
 }
@@ -107,7 +109,7 @@ img{
 .containing{
   margin-left: 40px;
   margin-right: 40px;
-  margin-top: 120px;
+  margin-top: 20px;
   flex-direction: row;
   display: none;
   height: 440px;
@@ -122,9 +124,6 @@ li{
   background-color: #91CBC5;
   padding: 5px;
   margin-right: 10px;
-}
-.title1 .title2 .title3 .title4 .title5 {
-
 }
 .white {
   background: white;
@@ -148,4 +147,16 @@ button{
   border-radius: 4px;
   margin-left: 50px;
   display: none;
+}
+.top{
+  margin-top: 60px;
+  display: none;
+
+}
+.toptext{
+  margin-left: 40px;
+  text-align: left;
+  font-weight: 400;
+  font-size: 20px;
+  text-transform: uppercase;
 }

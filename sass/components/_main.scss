@@ -1,0 +1,158 @@
+@include row(flex, 15px);
+@include caption(hidden, center);
+@include toptext(left, 400, 20px, uppercase);
+
+%fontstuff{
+  font-weight: 300;
+  margin-left: 40px;
+  text-align: center;
+}
+%threehundred{
+  font-weight: 300;
+}
+%indent{
+  margin-left: 40px;
+}
+%standardflex{
+  flex: 1;
+}
+%byebye{
+  display: none;
+}
+%prettybut{
+  width:150px;
+  height: 50px;
+  border: 1px solid #a2a2a2;
+  padding: 0px;
+  font-family: "Lato";
+  font-weight: 200;
+  text-transform: uppercase;
+  margin-top: 15px;
+  background-color: white;
+  border-radius: 4px;
+}
+body{
+  font-family: "Lato", sans-serif;
+  background-color: #5A99A3;
+  }
+h1{
+  text-transform: uppercase;
+  @extend %fontstuff;
+}
+h2{
+  @extend %fontstuff;
+}
+h3{
+  @extend %threehundred;
+  text-transform: uppercase;
+  padding-top: 15px;
+}
+h4{
+  margin: 0px 0px 10px 0px;
+  @extend %threehundred;
+}
+h5{
+  font-weight: 300;
+  text-transform: uppercase;
+}
+form{
+  @extend %indent;
+  margin-right: 40px;
+  background-color: #91CBC5;
+}
+fieldset{
+  border: none;
+}
+text{
+  opacity: 0;
+  padding: 20px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 400;
+  word-wrap: break-word;;
+  width: 20px;
+}
+img{
+  height: 150px;
+  margin: 15px;
+}
+ul{
+  padding-left: 10px;
+}
+li{
+  @extend %byebye;
+  font-size: 14px;
+  text-decoration: none;
+  background-color: #91CBC5;
+  padding: 5px;
+  margin-right: 10px;
+}
+button{
+  @extend %prettybut;
+  margin-left: 50px;
+  @extend %byebye;
+}
+.basicbox{
+  display: inline-block;
+  @extend %standardflex;
+}
+.basicbox label {
+  font-size: 12px;
+}
+.offset {
+  padding-top: 5px;
+}
+.foodrow {
+  display: flex;
+  @extend %indent;
+  margin-right: 40px;
+  justify-content:center;
+}
+.food {
+  @extend %standardflex;
+  padding: 30px;
+  justify-content:center;
+}
+.titlerow{
+  margin-top: 40px;
+  @extend %indent;
+}
+.info{
+  text-align: center;
+}
+.chart{
+  flex: 0 0 73%;
+}
+.chartInfo{
+  height: 400px;
+  flex: 0 0 27%;
+  background-color: white;
+}
+.containing{
+  @extend %indent;
+  margin-right: 40px;
+  margin-top: 20px;
+  flex-direction: row;
+  @extend %byebye;
+  height: 440px;
+}
+.white {
+  background: white;
+  margin: 40px;
+  padding-top: 20px;
+  @extend %byebye;
+}
+.infostyle{
+  padding-left: 10px;
+}
+.top{
+  margin-top: 60px;
+  @extend %byebye;
+
+}
+.toptext{
+  @extend %indent;
+}
+#submit {
+  @extend %prettybut;
+}

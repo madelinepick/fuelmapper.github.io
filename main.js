@@ -4,6 +4,7 @@ $(function(){
     $("html, body").animate({ scrollTop: "600px" });
     $(".containing").css({"display": "flex"});
     $(".white").show();
+    $(".top").show();
     $("button").css({"display": "inline"});
     event.preventDefault();
 
@@ -36,29 +37,29 @@ $(function(){
   if ( information.gender === "o"){
   forGraph.swimburn = ((0.6309*information.hr)-(0.09036*information.weight)+(0.2017*information.age)-55.0969)*30/4.184
   }
-  forGraph.runburn = (0.63*information.weight)*(60/information.runpace)*0.5
+  forGraph.runburn = (0.75*information.weight)*information.runpace*0.5
   forGraph.bikeburn = information.weight*information.bikepace*0.256032*0.5
 //average bike and run for easier data
-  forGraph.groundburn = (forGraph.bikeburn+forGraph.runburn)/2.5
-  console.log(forGraph.swimburn)
+  forGraph.groundburn = (forGraph.bikeburn+forGraph.runburn)/2
+  console.log(forGraph)
 forGraph.totaltime = Math.ceil(((information.swimpace/60)*2.4)+(112/information.bikepace)+(16/information.runpace))
 
 //get points for graph
 var usefulArray=[{"x_axis": 0, "y_axis": 0, "points": "", "stroke": "rgb(79, 47, 252)", "strokewidth": "2","fill": "none"},
 {"x_axis": 0, "y_axis": 0, "points": "", "stroke": "rgb(48, 177, 169)", "strokewidth": "2","fill": "none"}];
 var swimData = '';
-swimData = "0,"+(400-forGraph.stored*0.19047).toString()+" "+((information.swimpace/60)*2.4*55.88).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)).toString()+" "+((information.swimpace/60)*2.4*55.88).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-225*0.19047).toString()
+swimData = "0,"+(400-forGraph.stored*0.2).toString()+" "+((information.swimpace/60)*2.4*55.88).toString()+","+(400-(forGraph.stored*0.2)+(forGraph.swimburn*2.4*0.2)).toString()+" "+((information.swimpace/60)*2.4*55.88).toString()+","+(400-(forGraph.stored*0.2)+(forGraph.swimburn*2.4*0.2)-250*0.2).toString()
 
 usefulArray[0].points = swimData;
-var bikeData = ((information.swimpace/60)*2.4*55.88).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-225*0.19047).toString()+" ";
+var bikeData = ((information.swimpace/60)*2.4*55.88).toString()+","+(400-(forGraph.stored*0.2)+(forGraph.swimburn*2.4*0.2)-250*0.2).toString()+" ";
 
 var minusSwim = forGraph.totaltime - (information.swimpace/60)*2.4
 if(information.swimpace != 0){
 for (var i = 1; i <= minusSwim+1; i++) {
   if(i < minusSwim+1){
-  bikeData +=  (((information.swimpace/60)*2.4*55.88)+i*55.88).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-i*225*0.19047+i*(forGraph.groundburn*0.19407)).toString()+" "+(((information.swimpace/60)*2.4*55.88)+i*55.88).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-(i+1)*225*0.19047+i*(forGraph.groundburn*0.19407)).toString()+" ";
+  bikeData +=  (((information.swimpace/60)*2.4*55.88)+i*55.88).toString()+","+(400-(forGraph.stored*0.2)+(forGraph.swimburn*2.4*0.2)-i*250*0.2+i*(forGraph.groundburn*0.2)).toString()+" "+(((information.swimpace/60)*2.4*55.88)+i*55.88).toString()+","+(400-(forGraph.stored*0.2)+(forGraph.swimburn*2.4*0.2)-(i+1)*250*0.2+i*(forGraph.groundburn*0.2)).toString()+" ";
     } else{
-  bikeData +=  (((information.swimpace/60)*2.4*55.88)+i*55.88).toString()+","+(400-(forGraph.stored*0.19047)+(forGraph.swimburn*2.4*0.19047)-i*225*0.19047+i*(forGraph.groundburn*0.19407)).toString()
+  bikeData +=  (((information.swimpace/60)*2.4*55.88)+i*55.88).toString()+","+(400-(forGraph.stored*0.2)+(forGraph.swimburn*2.4*0.2)-i*250*0.2+i*(forGraph.groundburn*0.2)).toString()
     }
   }
 }
@@ -75,16 +76,17 @@ var bikeDataP = bikeDataP.split(',')
 console.log(bikeDataP[5])
 
 var inputCircles = [
-  {"x_axis": swimDataP[2], "y_axis": swimDataP[3], "words": "Hello"},
-  {"x_axis": swimDataP[4], "y_axis": swimDataP[5], "words": "Hello"},
-  {"x_axis": swimDataP[6], "y_axis": swimDataP[7], "words": "Hello"},
+  {"x_axis": "0", "y_axis": (400-forGraph.stored*0.2).toString()},
+  {"x_axis": swimDataP[2], "y_axis": swimDataP[3]},
+  {"x_axis": swimDataP[4], "y_axis": swimDataP[5]},
+  {"x_axis": swimDataP[6], "y_axis": swimDataP[7]},
 ]
 
-for (var i = 1; i <= bikeDataP.length/2; i++) {
-  inputCircles[i+2] = {"x_axis": bikeDataP[i*2], "y_axis": bikeDataP[i*2+1], "words": "Hello"}
+for (var i = 1; i < bikeDataP.length/2-1; i++) {
+  inputCircles[i+2] = {"x_axis": bikeDataP[i*2], "y_axis": bikeDataP[i*2+1]}
 }
 
-console.log(swimDataP)
+console.log(inputCircles)
 
 d3Chart = {
   container: d3.select(".chart")
@@ -124,12 +126,9 @@ function circles (newCircles){
   var capAtts = cap.attr("x", function(d) { return d.x_axis;})
                       .attr("y", function(d) { return d.y_axis;})
                       .attr("class", "info")
-                      .attr("fill", "white")
-                      .text(function(d) { return 2000 - Number(d.y_axis);});
+                      .attr("fill", "#333")
+                      .text(function(d) { return "Hour "+Math.round(Number(d.x_axis)/71.875)+":"+Math.round(2000 - Number(d.y_axis)*5)+" calories";});
   }
-
-
-
 
 //make graph
 d3Chart.triChartFn(usefulArray);
@@ -216,5 +215,9 @@ $("text").on("mouseleave", function(){
 })
 
 
+  })
+
+  $(".clear").on("click", function(){
+    location.reload();
   })
 })
