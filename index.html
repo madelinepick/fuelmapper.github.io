@@ -19,27 +19,27 @@
       <div class="row">
         <div class="basicbox">
           <label for="swimpace">Swim Pace</label><br>
-          <input name="swimpace" type="text" placeholder="min/mi" required>
+          <input name="swimpace" type="number" placeholder="min/mi" min=20 max=70 required>
         </div>
         <div class="basicbox">
           <label for="bikepace">Bike Pace</label><br>
-          <input name="bikepace" type="text" placeholder="mph" required>
+          <input name="bikepace" type="number" placeholder="mph" min=13 max=29 required>
         </div>
         <div class="basicbox">
           <label for="runpace">Run Pace</label><br>
-          <input name="runpace" type="text" placeholder="mph" required>
+          <input name="runpace" type="number" placeholder="mph" min=4 max=10 required>
         </div>
         <div class="basicbox">
           <label for="hr">HR at 75% Effort</label><br>
-          <input name="hr" type="text" placeholder="155" required>
+          <input name="hr" type="number" placeholder="beats/min" min=140 max=170 required>
         </div>
         <div class="basicbox">
           <label for="weight">Weight</label><br>
-          <input name="weight" type="text" placeholder="Lbs" required>
+          <input name="weight" type="input" placeholder="lbs" min=100 max=450 required>
         </div>
         <div class="basicbox">
           <label for="age">Age</label><br>
-          <input name="age" type="text" required>
+          <input name="age" type="number" min=18 max=100 required>
         </div>
         <div class="basicbox">
           <label for="gender">Gender</label><br>
@@ -89,7 +89,7 @@
     <div class="chart"></div>
     <div class="chartInfo"></div>
   </section>
-  <button>Fueling Advice</button>
+  <button class="fueldvice">Fuel Advice</button>
   <button class="clear">Clear</button>
   <section class="white">
     <div class="titlerow"></div>

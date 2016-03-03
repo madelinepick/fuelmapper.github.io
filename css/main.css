@@ -20,7 +20,7 @@ h1, h2 {
 h3, h4 {
   font-weight: 300; }
 
-form, .foodrow, .titlerow, .containing, .toptext {
+form, .foodrow, .titlerow, .containing, .toptext, .topsub {
   margin-left: 40px; }
 
 .basicbox, .food {
@@ -92,6 +92,9 @@ li {
 button {
   margin-left: 50px; }
 
+input[type='number'] {
+  width: 100px; }
+
 .basicbox {
   display: inline-block; }
 
@@ -116,11 +119,13 @@ button {
 .info {
   text-align: center; }
 
+.chart {
+  flex: 0 0 73%; }
+
 .chartInfo {
   height: 400px;
   flex: 0 0 27%;
   background-color: white; }
-  
 
 .containing {
   margin-right: 40px;
@@ -138,3 +143,10 @@ button {
 
 .top {
   margin-top: 60px; }
+
+.toptext {
+  color: white; }
+
+.topsub {
+  color: white;
+  font-size: 20px; }

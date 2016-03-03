@@ -127,7 +127,7 @@ function circles (newCircles){
                       .attr("y", function(d) { return d.y_axis;})
                       .attr("class", "info")
                       .attr("fill", "#333")
-                      .text(function(d) { return "Hour "+Math.round(Number(d.x_axis)/71.875)+":"+Math.round(2000 - Number(d.y_axis)*5)+" calories";});
+                      .text(function(d) { return "Hour "+Math.round(Number(d.x_axis)/55.88)+":"+Math.round(2000 - Number(d.y_axis)*5)+" calories";});
   }
 
 //make graph
@@ -197,7 +197,7 @@ shuffle(fuelArray);
 var pickedFuel = fuelArray.splice(0,5);
 var joinedFuel = pickedFuel.join("");
 
-
+$(".top").append("<h4 class='topsub'>Your total time is "+forGraph.totaltime+"+ hours"+"</h4>")
 $(".titlerow").append("<h2>Good Fuel Choices for you:</h2>")
 $(".foodrow").append(joinedFuel);
 
@@ -213,11 +213,14 @@ $("text").on("mouseenter", function(){
 $("text").on("mouseleave", function(){
   $(this).css({"opacity": "0"});
 })
-
-
-  })
+localStorage.forGraph = JSON.stringify(forGraph);
+})
 
   $(".clear").on("click", function(){
     location.reload();
+  })
+  $(".fueladvice").on("click", function(){
+    var prevData = JSON.parse(localStorage.forGraph);
+    console.log(prevData);
   })
 })
