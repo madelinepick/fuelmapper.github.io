@@ -1,5 +1,4 @@
 $(function(){
-
   $( "#fuelForm" ).on("submit", function(){
     $("html, body").animate({ scrollTop: "600px" });
     $(".containing").css({"display": "flex"});
