@@ -1,4 +1,4 @@
-@include row(flex, 15px);
+// @include row(flex, 15px);
 @include caption(hidden, center);
 @include toptext(left, 400, 30px, uppercase);
 
@@ -28,13 +28,13 @@
   font-weight: 300;
   text-transform: uppercase;
   margin-top: 10px;
-  background-color: #2CB8A9;
-  // border-radius: 4px;
+  background-color: #ee596b;
+  color: white;
 
 }
 body{
   font-family: "Lato", sans-serif;
-  background-color: #92b5ba;
+  background-color: #ffffff;
   margin: 0px;
   }
 h1{
@@ -57,10 +57,14 @@ h5{
   font-weight: 300;
   text-transform: uppercase;
 }
+p{
+  font-weight: 300;
+}
 form{
-  @extend %indent;
-  margin-right: 40px;
+  margin-left: 300px;
+  margin-right: 300px;
   background-color: white;
+  border: 1px solid rgb(68, 137, 217);
 }
 fieldset{
   border: none;
@@ -84,9 +88,10 @@ li{
   @extend %byebye;
   font-size: 14px;
   text-decoration: none;
-  background-color: #92b5ba;
+  background-color: rgb(68, 137, 217);
   padding: 5px;
   margin-right: 10px;
+  color: white;
 }
 button{
   @extend %prettybut;
@@ -95,22 +100,26 @@ button{
 }
 input[type='number']{
   width: 100px;
+  margin-bottom: 15px;
 }
-.basicbox{
-  display: inline-block;
-  @extend %standardflex;
-}
-.basicbox label {
+// .basicbox{
+//   display: inline-block;
+//   @extend %standardflex;
+// }
+.formcol label {
   font-size: 12px;
 }
 .offset {
-  padding-top: 5px;
+  padding-top: 70px;
+  margin-left: 0px;
 }
 .foodrow {
   display: flex;
   @extend %indent;
   margin-right: 40px;
   justify-content:center;
+  border: 1px solid rgb(68, 137, 217);
+  padding-top: 20px;
 }
 .food {
   @extend %standardflex;
@@ -119,7 +128,16 @@ input[type='number']{
 }
 .titlerow{
   margin-top: 40px;
+  margin-right: 40px;
+  margin-left: 40px;
   @extend %indent;
+  background-color: rgb(68, 137, 217);
+  color: white;
+}
+.titlerow h3{
+  margin-bottom: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 .info{
   text-align: center;
@@ -135,6 +153,7 @@ input[type='number']{
   height: 400px;
   flex: 0 0 27%;
   background-color: white;
+  border: 1px solid rgb(68, 137, 217);
 }
 .containing{
   @extend %indent;
@@ -142,7 +161,7 @@ input[type='number']{
   margin-top: 20px;
   flex-direction: row;
   @extend %byebye;
-  height: 440px;
+  height: 420px;
 }
 .white {
   background: white;
@@ -155,16 +174,21 @@ input[type='number']{
 }
 .top{
   margin-top: 60px;
+  background-color: white;
+  height: 100px;
   @extend %byebye;
 }
 .toptext{
   @extend %indent;
-  color: white;
+  color: #333;
+  padding-top: 15px;
+  margin-bottom: 10px;
 }
 .toptitle{
   font-size: 60px;
   font-weight: 500;
   margin: 30px auto auto 30px;
+  color: rgb(68, 137, 217);
 }
 .hero{
   margin:0px 0px 80px 0px;
@@ -188,6 +212,7 @@ input[type='number']{
   margin-left: auto;
   margin-right: auto;
   background-color: white;
+  padding-top: 0px;
 }
 .col{
   flex: 1;
@@ -196,8 +221,8 @@ input[type='number']{
   padding: 20px;
   margin: 0px 10px;
 }
-.noborder{
-  background:#5A99A3;
+.edges{
+  background-color: rgb(68, 137, 217);
 }
 .coltext{
  padding-top: 20px;
@@ -206,7 +231,9 @@ input[type='number']{
 .row2{
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: rgb(68, 137, 217);
 }
 .why{
   display: inline;
@@ -229,8 +256,13 @@ input[type='number']{
   width: 50%;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  font-size: 18px;
+  line-height: 24px;
+}
+.noindent{
+  margin-left: 0px;
 }
 .start{
   display: inline;
@@ -242,8 +274,8 @@ input[type='number']{
 .little{
   display: inline;
   font-size: 12px;
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 10px;
+  // background-color: rgba(255, 255, 255, 0.5);
+  // padding: 10px;
   @extend %indent;
 }
 .middle{
@@ -253,11 +285,28 @@ input[type='number']{
 }
 .inline{
   display: inline;
-  margin: 0px;
-  padding: 0px;
 }
-h5.inline{
-  margin-left: 10px;
+.formcol{
+  flex: 1;
+  display: inline;
+  flex-direction: column;
+}
+.formrow{
+  display: flex;
+  justify-content: center;
+}
+.largemarg{
+  margin-left: 20px;
+}
+.largemargr{
+  margin-right: 20px;
+  padding-top: 30px;
+  border-left: 1px solid #a7a7a7;
+  padding-left: 30px;
+}
+.footer{
+  text-align: center;
+  padding-top: 30px;
 }
 #submit {
   @extend %prettybut;

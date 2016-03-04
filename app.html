@@ -85,7 +85,55 @@
     </fieldset>
   </form> -->
   <form action="" id="fuelForm">
-    <fieldset></fieldset>
+    <fieldset>
+      <section class="formrow">
+        <section class="formcol largemarg">
+          <h3>Basic Info</h3>
+          <label for="swimpace">Swim Pace</label><br>
+          <input name="swimpace" type="number" placeholder="min/mi" min=20 max=70 required><br>
+          <label for="bikepace">Bike Pace</label><br>
+          <input name="bikepace" type="number" placeholder="mph" min=13 max=29 required><br>
+          <label for="runpace">Run Pace</label><br>
+          <input name="runpace" type="number" placeholder="mph" min=4 max=10 required><br>
+          <label for="hr">HR at 75% Effort</label><br>
+          <input name="hr" type="number" placeholder="beats/min" min=140 max=170 required><br>
+        </section>
+        <section class="formcol offset">
+          <label for="weight">Weight</label><br>
+          <input name="weight" type="number" placeholder="lbs" min=100 max=450 required><br>
+          <label for="age">Age</label><br>
+          <input name="age" type="number" min=18 max=100 required><br>
+          <label for="gender">Gender</label><br>
+          <input name="gender" value="f" type="radio" required>
+          <label for="gender">Female</label><br>
+          <input name="gender" value="m" type="radio" required>
+          <label for="gender">Male</label><br>
+          <input name="gender" value="o" type="radio" required>
+          <label for="gender">Other</label>
+        </section>
+        <section class="formcol largemargr">
+          <h3 class="inline flavor">Flavors</h3><br>
+          <h5 class="inline">(Choose at least three)</h5><br>
+          <input name="chocolate" value="chocolate" type="radio">
+          <label for="chocolate">Chocolate</label><br>
+          <input name="berry" value="berry" type="radio">
+          <label for="berry">Berry</label><br>
+          <input name="citrus" value="citrus" type="radio">
+          <label for="citrus">Citrus</label><br>
+          <input name="coffee" value="coffee" type="radio">
+          <label for="coffee">Coffee</label><br>
+          <input name="lemonlime" value="lemon" type="radio">
+          <label for="lemonlime">Lemon-lime</label><br>
+          <input name="fruit" value="fruit" type="radio">
+          <label for="fruit">Other fruit</label><br>
+          <input name="caramel" value="caramel" type="radio">
+          <label for="caramel">Caramel/honey</label><br>
+          <input name="nuts" value="nuts" type="radio">
+          <label for="nuts">Nuts</label><br>
+        </section>
+      </section>
+      <input type="submit" value="create your chart" id="submit">
+    </fieldset>
   </form>
   <section class="top">
     <h1 class="toptext">Your carbohydrate usage during Ironman</h1>

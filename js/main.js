@@ -1,6 +1,6 @@
 $(function(){
   $( "#fuelForm" ).on("submit", function(){
-    $("html, body").animate({ scrollTop: "580px" });
+    $("html, body").animate({ scrollTop: "590px" });
     $(".containing").css({"display": "flex"});
     $(".white").show();
     $(".top").show();
@@ -96,8 +96,7 @@ d3Chart = {
               .attr("width", fancyWidth)
               .attr("height", 400)
               .style("display", "inline")
-              .style("border-bottom", "1px solid white")
-              .style("border-left", "1px solid white"),
+              .style("border", "1px solid rgb(68, 137, 217)"),
   triChartFn: triChart,
   circlesFn: circles
 };
@@ -111,21 +110,22 @@ function triChart ( newPoints ) {
                         .attr("y", function(d) { return d.y_axis;})
                         .transition()
                         .attr("points", function(d) { return d.points;})
-                        .attr("stroke", "white")
+                        .attr("stroke", "#333")
                         .attr("stroke-width", function(d) { return d.strokewidth;})
                         .attr("fill", "none")
 }
 
 function circles (newCircles){
   var circlePoints = newCircles;
+  var edge = Number(d3Chart.container.attr("width"));
   var fuel = d3Chart.container.selectAll("circle").data(circlePoints).enter().append("circle");
   var fuelAtts = fuel.attr("cx", function(d) { return d.x_axis;})
                         .attr("cy", function(d) { return d.y_axis;})
                         .attr("r", "10")
-                        .attr("fill", "white")
+                        .attr("fill", "#ee596b")
   var showtotal = d3Chart.container.append("text")
-                                  .attr("x", "10")
-                                  .attr("y", "380")
+                                  .attr("x", parseInt(edge-250))
+                                  .attr("y", "30")
                                   .text("Your total time is "+forGraph.totaltime+"+ hours")
   }
 
@@ -230,16 +230,16 @@ $("circle").on("mouseenter", function(){
   console.log(circleX);
   console.log(circlyY);
   var box = d3Chart.container.append("rect")
-  var boxAtts = box.attr("x", parseInt(edge-200))
-                    .attr("y", "20")
-                    .attr("fill", "white")
+  var boxAtts = box.attr("x", parseInt(edge-270))
+                    .attr("y", "40")
+                    .attr("fill", "rgb(68, 137, 217)")
                     .attr("width", "300px")
                     .attr("height", "50px")
   var cap = d3Chart.container.append("text");
-  var capAtts = cap.attr("x", parseInt(edge-180))
-                      .attr("y", "50")
+  var capAtts = cap.attr("x", parseInt(edge-250))
+                      .attr("y", "70")
                       .attr("class", "info")
-                      .attr("fill", "#333")
+                      .attr("fill", "white")
                       .text(circlespot);
 })
 $("circle").on("mouseleave", function(){
