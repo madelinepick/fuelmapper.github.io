@@ -32,18 +32,17 @@ li, button, .containing, .white, .top {
 button, #submit {
   width: 150px;
   height: 50px;
-  border: 1px solid #a2a2a2;
+  border: none;
   padding: 0px;
   font-family: "Lato";
   font-weight: 300;
   text-transform: uppercase;
   margin-top: 10px;
-  background-color: white;
-  border-radius: 4px; }
+  background-color: #2CB8A9; }
 
 body {
   font-family: "Lato", sans-serif;
-  background-color: #5A99A3;
+  background-color: #92b5ba;
   margin: 0px; }
 
 h1 {
@@ -62,7 +61,7 @@ h5 {
 
 form {
   margin-right: 40px;
-  background-color: #91CBC5; }
+  background-color: white; }
 
 fieldset {
   border: none; }
@@ -85,7 +84,7 @@ ul {
 li {
   font-size: 14px;
   text-decoration: none;
-  background-color: #91CBC5;
+  background-color: #92b5ba;
   padding: 5px;
   margin-right: 10px; }
 
@@ -149,6 +148,11 @@ input[type='number'] {
 
 .toptext {
   color: white; }
+
+.toptitle {
+  font-size: 60px;
+  font-weight: 500;
+  margin: 30px auto auto 30px; }
 
 .hero {
   margin: 0px 0px 80px 0px;

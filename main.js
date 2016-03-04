@@ -1,6 +1,6 @@
 $(function(){
   $( "#fuelForm" ).on("submit", function(){
-    $("html, body").animate({ scrollTop: "620px" });
+    $("html, body").animate({ scrollTop: "580px" });
     $(".containing").css({"display": "flex"});
     $(".white").show();
     $(".top").show();

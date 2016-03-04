@@ -22,18 +22,19 @@
 %prettybut{
   width:150px;
   height: 50px;
-  border: 1px solid #a2a2a2;
+  border: none;
   padding: 0px;
   font-family: "Lato";
   font-weight: 300;
   text-transform: uppercase;
   margin-top: 10px;
-  background-color: white;
-  border-radius: 4px;
+  background-color: #2CB8A9;
+  // border-radius: 4px;
+
 }
 body{
   font-family: "Lato", sans-serif;
-  background-color: #5A99A3;
+  background-color: #92b5ba;
   margin: 0px;
   }
 h1{
@@ -59,7 +60,7 @@ h5{
 form{
   @extend %indent;
   margin-right: 40px;
-  background-color: #91CBC5;
+  background-color: white;
 }
 fieldset{
   border: none;
@@ -83,7 +84,7 @@ li{
   @extend %byebye;
   font-size: 14px;
   text-decoration: none;
-  background-color: #91CBC5;
+  background-color: #92b5ba;
   padding: 5px;
   margin-right: 10px;
 }
@@ -160,13 +161,11 @@ input[type='number']{
   @extend %indent;
   color: white;
 }
-// .topsub{
-//   @extend %indent;
-//   display: inline;
-//   color: #333;
-//   font-size: 20px;
-//   font-weight: 400;
-// }
+.toptitle{
+  font-size: 60px;
+  font-weight: 500;
+  margin: 30px auto auto 30px;
+}
 .hero{
   margin:0px 0px 80px 0px;
   height:500px;
