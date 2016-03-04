@@ -1,6 +1,6 @@
 $(function(){
   $( "#fuelForm" ).on("submit", function(){
-    $("html, body").animate({ scrollTop: "590px" });
+    $("html, body").animate({ scrollTop: "620px" });
     $(".containing").css({"display": "flex"});
     $(".white").show();
     $(".top").show();
@@ -225,7 +225,7 @@ $(function(){
     $("circle").on("mouseleave", function(){
       $(".info").remove();
       $("rect").remove();
-      
+
     })
   })
 
