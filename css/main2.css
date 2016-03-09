@@ -1,0 +1,97 @@
+form{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #4489d9;
+  padding: 20px;
+  margin-bottom: 50px;
+}
+body{
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+}
+h1, h2{
+  text-align: center;
+  color: #4489d9;
+}
+h1{
+  font-weight: 400;
+  font-size: 50px;
+  text-transform: uppercase;
+}
+h2{
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 300;
+}
+h3{
+  font-weight: 300;
+}
+button, #submit {
+  width: 150px;
+  height: 50px;
+  border: none;
+  padding: 0px;
+  font-family: "Lato";
+  font-weight: 300;
+  text-transform: uppercase;
+  margin-top: 10px;
+  background-color: #ee596b;
+  color: white; }
+.formrow{
+  display: flex;
+}
+.formcolL{
+  flex:0 0 25%;
+}
+.formcolR{
+  flex:0 0 50%;
+  border-left: 1px solid #333;
+  padding-left: 30px;
+}
+.formHeader{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+.formSub{
+  margin: 10px 0px;
+  padding: 0px;
+  font-weight: 300;
+}
+.chart{
+  margin-left: 8%;
+}
+.charttitle{
+  font-size: 30px;
+  text-align: left;
+  margin-left: 8%;
+}
+.chartrow{
+  display: none;
+}
+.fueladvice{
+  margin-left: 8%;
+}
+label {
+  font-size: 12px;
+}
+input[type='number'] {
+  width: 45%;
+  margin-bottom: 15px;
+  height: 20px; }
+
+input[type='number']:focus {
+  outline: none;
+  box-shadow: 0px 0px 1px 2px #ee596b; }
+.axis path,
+.axis line{
+  fill: none;
+  stroke: olive;
+  shape-rendering: crispEdges;
+}
+.axis text{
+  font-family: sans-serif;
+  font-size: 11px;
+  fill: olive;
+}

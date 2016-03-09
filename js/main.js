@@ -38,8 +38,8 @@ $(function(){
     forGraph.bikeburn = information.weight*information.bikepace*0.256032*0.5
     forGraph.groundburn = (forGraph.bikeburn+forGraph.runburn)/2
     forGraph.totalburn = (forGraph.bikeburn+forGraph.runburn+forGraph.swimburn)/3
-    localStorage.storedData = JSON.stringify(forGraph);
     forGraph.totaltime = Math.ceil(((information.swimpace/60)*2.4)+(112/information.bikepace)+(16/information.runpace))
+    localStorage.storedData = JSON.stringify(forGraph);
 
     var usefulArray=[{"x_axis": 0, "y_axis": 0, "points": "", "stroke": "rgb(79, 47, 252)", "strokewidth": "2","fill": "none"},
     {"x_axis": 0, "y_axis": 0, "points": "", "stroke": "rgb(48, 177, 169)", "strokewidth": "2","fill": "none"}];
