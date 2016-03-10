@@ -67,7 +67,7 @@ var lineplot = canvas.append("polyline")
 
 
   $(".fuelForm").on("submit", function(){
-    $("html, body").animate({ scrollTop: "550px" });
+    // $("html, body").animate({ scrollTop: "550px" });
     $(".chartrow").show();
     event.preventDefault();
 
@@ -160,17 +160,16 @@ var lineplot = canvas.append("polyline")
 
         var linePoints = [];
 
-        // the points aren't right??
-        // for (var i = 0; i < circlePoints.length; i++) {
-        //   insidearray = [0,0];
-        //   insidearray[0] = newxScale(circlePoints[i][0])+padding;
-        //   insidearray[1] = newyScale(circlePoints[i][1]);
-        //   linePoints.push(insidearray);
-        //   }
-        // for (var i = 0; i < linePoints.length; i++) {
-        //   linePoints[i] = linePoints[i].join(",")
-        // }
-        // linePoints = linePoints.join(" ");
+        for (var i = 0; i < circlePoints.length; i++) {
+          insidearray = [0,0];
+          insidearray[0] = xScale(circlePoints[i][0])+padding;
+          insidearray[1] = yScale(circlePoints[i][1]);
+          linePoints.push(insidearray);
+          }
+        for (var i = 0; i < linePoints.length; i++) {
+          linePoints[i] = linePoints[i].join(",")
+        }
+        linePoints = linePoints.join(" ");
 
     canvas.transition()
           .delay(1000)
@@ -212,5 +211,39 @@ var lineplot = canvas.append("polyline")
           .attr({
             points: linePoints,
           });
+
+    var chartHTML = '<h3 class="infostyle">What is this graph saying?</h3><ul><h5 class="title1">Carbohydrate Calories&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list1">First off, this graph is only showing immediately available carbohydrate calories, not calories stored as fat. Your body fuels endurance races from both sources, but you can continue to take in usable carbohydrates during a race, while you rely on existing fat sources.</li><h5 class="title2">Stored glycogen&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list2">You will start off with an amount of stored glycogen based on your weight. Your stored glycogen is '+information.stored +' calories.</li><h5 class="title3">Burn rate&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list3">Each dip in the graph represent the carbohydrate calories you burn per hour, roughly half of your total calories burned. You burn '+Math.round(information.swimburn*2)+' calories per hour while swimming, '+Math.round(information.runburn*2)+' calories per hour while running and '+Math.round(information.bikeburn*2)+' calories per hour while biking.</li><h5 class="title4">Fueling&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list4">For our model, we used a standard 250 cals/hr fueling plan, which is why the graph shows a flat increase every hour.</li><h5 class="title5">My line goes off the chart!&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list5">If your line dips below the bottom of the chart, this means your body would be relying on fat calories to finish the race since 250 cals per hour was not able to replace what you burned. Our advice is to up your calorie per hour intake (more than 250) if you see this happening in the graph.</li></ul>';
+
+    $(".chartInfo").append(chartHTML);
+
+    function closeOpen(){
+      $(".list1").css({"display": "none"});
+      $(".list2").css({"display": "none"});
+      $(".list3").css({"display": "none"});
+      $(".list4").css({"display": "none"});
+      $(".list5").css({"display": "none"});
+    }
+
+    $( ".title1" ).on('click', function(){
+      closeOpen();
+      $(".list1").slideToggle( "slow")
+    });
+    $( ".title2" ).on('click', function(){
+      closeOpen();
+      $(".list2").slideToggle( "slow")
+    });
+    $( ".title3" ).on('click', function(){
+      closeOpen();
+      $(".list3").slideToggle( "slow")
+    });
+    $( ".title4" ).on('click', function(){
+      closeOpen();
+      $(".list4").slideToggle( "slow")
+    });
+    $( ".title5" ).on('click', function(){
+      closeOpen();
+      $(".list5").slideToggle( "slow")
+    });
+
   })
 })
