@@ -39,6 +39,7 @@ button, #submit {
   margin-top: 10px;
   background-color: #ee596b;
   color: white;
+  -webkit-appearance: none;
 }
 .formrow{
   display: flex;
