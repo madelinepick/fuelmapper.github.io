@@ -40,6 +40,7 @@ button, #submit {
   background-color: #ee596b;
   color: white;
   -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }
 .formrow{
   display: flex;

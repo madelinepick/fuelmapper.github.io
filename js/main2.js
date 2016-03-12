@@ -56,7 +56,7 @@ var scatter = canvas.selectAll("circle")
                     .attr({
                       cx: function(d){return xScale(d[0])+padding;},
                       cy: function(d){return yScale(d[1]);},
-                      r: 5
+                      r: 2
                     });
 var lineplot = canvas.append("polyline")
                     .attr({
