@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FuelMapper</title>
+  <meta name="description" content="Map your carbohydrate usage during Ironman">
+  <meta property="og:title" content="FuelMapper">
+  <meta property="og:image" content="Assets/kona.jpg">
+  <meta property="og:description" content="Map your carbohydrate usage">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+  <script src="js/d3.min.js" charset="utf-8"></script>
+  <link rel="icon" type="image/png"  href="http://www.slate.com/features/2014/10/run/img/icon_20027/icon_20027.png">
+</head>
+<body>
+  <h1 class="toptitle">FuelMapper</h1>
+  <h2>Map your energy use during an Ironman</h2>
+  <form action="" id="fuelForm">
+    <fieldset>
+      <section class="formrow">
+        <section class="formcol largemarg">
+          <h3>Basic Info</h3>
+          <label for="swimpace">Swim Pace</label><br>
+          <input name="swimpace" type="number" placeholder="min/mi" min=20 max=70 required><br>
+          <label for="bikepace">Bike Pace</label><br>
+          <input name="bikepace" type="number" placeholder="mph" min=13 max=29 required><br>
+          <label for="runpace">Run Pace</label><br>
+          <input name="runpace" type="number" placeholder="mph" min=4 max=10 required><br>
+          <label for="hr">HR at 75% Effort</label><br>
+          <input name="hr" type="number" placeholder="beats/min" min=140 max=170 required><br>
+        </section>
+        <section class="formcol offset">
+          <label for="weight">Weight</label><br>
+          <input name="weight" type="number" placeholder="lbs" min=100 max=450 required><br>
+          <label for="age">Age</label><br>
+          <input name="age" type="number" min=18 max=100 required><br>
+          <label for="gender">Gender</label><br>
+          <input name="gender" value="f" type="radio" required>
+          <label for="gender">Female</label><br>
+          <input name="gender" value="m" type="radio" required>
+          <label for="gender">Male</label><br>
+          <input name="gender" value="o" type="radio" required>
+          <label for="gender">Other</label>
+        </section>
+        <section class="formcol largemargr">
+          <h3 class="inline flavor">Flavors</h3><br>
+          <h5 class="inline">(Choose at least three)</h5><br>
+          <input name="chocolate" value="chocolate" type="radio">
+          <label for="chocolate">Chocolate</label><br>
+          <input name="berry" value="berry" type="radio">
+          <label for="berry">Berry</label><br>
+          <input name="citrus" value="citrus" type="radio">
+          <label for="citrus">Citrus</label><br>
+          <input name="coffee" value="coffee" type="radio">
+          <label for="coffee">Coffee</label><br>
+          <input name="lemonlime" value="lemon" type="radio">
+          <label for="lemonlime">Lemon-lime</label><br>
+          <input name="fruit" value="fruit" type="radio">
+          <label for="fruit">Other fruit</label><br>
+          <input name="caramel" value="caramel" type="radio">
+          <label for="caramel">Caramel/honey</label><br>
+          <input name="nuts" value="nuts" type="radio">
+          <label for="nuts">Nuts</label><br>
+        </section>
+      </section>
+      <input type="submit" value="create your chart" id="submit">
+    </fieldset>
+  </form>
+  <section class="top">
+    <h1 class="toptext">Your carbohydrate usage during Ironman</h1>
+  </section>
+  <section class="containing">
+    <div class="chart"></div>
+    <div class="chartInfo"></div>
+  </section>
+  <button class="fueladvice">Fuel Advice</button>
+  <button class="clear">Clear</button>
+  <section class="white">
+    <div class="titlerow"></div>
+    <div class="foodrow"></div>
+  </section>
+</body>
+</html>
