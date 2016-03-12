@@ -73,7 +73,7 @@
         <label for="nuts">Nuts</label><br>
       </section>
     </section>
-    <input type="submit" value="create your chart" id="submit" onclick="window.location='#mychart'">
+    <input type="submit" value="create your chart" id="submit">
   </form>
 
   <section id="mychart" class="chartrow">
@@ -85,10 +85,10 @@
     <button class="clear">Clear</button>
   </section>
   <section class="chartrow">
-    <div class="chartInfo"></div>
+    <div class="chartInfo noborder" id="explain"></div>
     <button class="fueladvice">Fuel Advice</button>
   </section>
-  <section class="chartrow">
+  <section class="chartrow" id="fuellist">
     <div class="fueltitle"></div>
     <div class="fuelrow"></div>
   </section>
