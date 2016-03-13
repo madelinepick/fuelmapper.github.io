@@ -214,7 +214,7 @@ a {
   font-size: .8em;
   text-align: center;
 }
-@media only screen and (min-width: 650px) and (max-width: 1024px){
+@media only screen and (min-width: 650px) and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1){
   form{
     width: 75%;
   }
@@ -226,7 +226,7 @@ a {
   }
   .
 }
-@media only screen and (min-width: 0px) and (max-width: 649px){
+@media only screen and (min-width: 0px) and (max-width: 649px) and (-webkit-min-device-pixel-ratio: 1){
   form{
     width: 50%;
   }
@@ -277,6 +277,8 @@ a {
   .colR, .colL{
     width: 100%;
     overflow: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   .colR{
     margin-bottom: 40px;
@@ -311,6 +313,7 @@ a {
   }
   .charttitle{
     margin-top: 0px;
+
   }
 
 }
