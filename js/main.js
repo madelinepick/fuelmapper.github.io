@@ -1,13 +1,79 @@
 $(function(){
-  $( "#fuelForm" ).on("submit", function(){
-    $("html, body").animate({ scrollTop: "620px" });
-    $(".containing").css({"display": "flex"});
-    $(".white").show();
-    $(".top").show();
-    $("button").css({"display": "inline"});
+  var defaultdata = [
+  [0,1800],[2.3,1200],[3.3,1450],[3.5,1125],[4.3,1375],[4.5,1050],[5.3,1300],[5.5,975],[6.3,1225],[6.5,900],[7.3,1150],[7.5,825],[8.3,1075],[8.5,750],[9.3,1000],[9.5,675],[10.3,925],[10.5,600],[11.3,850],[11.5,525]
+  ];
+var w = $(window).width()*0.75,
+    h = w/2-0.1*w,
+    padding = 40,
+    xScale = d3.scale.linear()
+                      .domain([0, d3.max(defaultdata, function(d){return d[0];})])
+                      .range([0, w-padding]),
+    yScale = d3.scale.linear()
+                      .domain([0, d3.max(defaultdata, function(d){return d[1];})])
+                      .range([h-padding, 0]),
+    xAxis = d3.svg.axis()
+                  .scale(xScale)
+                  .orient("bottom")
+                  .ticks(h/35)
+                  .outerTickSize(0),
+    yAxis = d3.svg.axis()
+                  .scale(yScale)
+                  .orient("left")
+                  .ticks(w/100)
+                  .outerTickSize(0);
+
+var defaultline = [];
+for (var i = 0; i < defaultdata.length; i++) {
+  insidearray = [0,0];
+  insidearray[0] = xScale(defaultdata[i][0])+padding;
+  insidearray[1] = yScale(defaultdata[i][1]);
+  defaultline.push(insidearray);
+  }
+for (var i = 0; i < defaultline.length; i++) {
+  defaultline[i] = defaultline[i].join(",")
+}
+defaultline = defaultline.join(" ");
+
+var canvas  = d3.select(".chart")
+                .append("svg")
+                .attr({
+                  height: h+"px",
+                  width: w+"px"
+                })
+var xaxis = canvas.append("g")
+                  .attr("class", "axis")
+                  .attr("transform", "translate("+padding+","+(h-padding)+")")
+                  .call(xAxis);
+var yaxis = canvas.append("g")
+                  .attr("class", "axis")
+                  .attr("transform", "translate("+padding+",0)")
+                  .call(yAxis);
+
+var scatter = canvas.selectAll("circle")
+                    .data(defaultdata)
+                    .enter()
+                    .append("circle")
+                    .attr({
+                      cx: function(d){return xScale(d[0])+padding;},
+                      cy: function(d){return yScale(d[1]);},
+                      r: 1
+                    });
+var lineplot = canvas.append("polyline")
+                    .attr({
+                      points: defaultline,
+                      fill: "none",
+                      stroke: "black"
+                    });
+
+
+  $(".fuelForm").on("submit", function(){
+    $(".chartrow").show();
+    $('html, body').animate({
+        scrollTop: $("#mychart").offset().top
+    }, 1000);
     event.preventDefault();
 
-    var serialURL = $( this ).serialize().split("&");
+    var serialURL = $(this).serialize().split("&");
 
     var information = {};
     for(var i = 0; i < serialURL.length; i++){
@@ -15,115 +81,155 @@ $(function(){
     information[j[0]] = j[1];
     }
 
-    var forGraph = {};
-    if ( information.weight > 0 && information.weight<=100 ) { forGraph.stored = 1400}
-    if ( information.weight > 100 && information.weight<=120 ) { forGraph.stored = 1500}
-    if ( information.weight > 120 && information.weight<=140 ) { forGraph.stored = 1600}
-    if ( information.weight > 140 && information.weight<=160 ) { forGraph.stored = 1700}
-    if ( information.weight > 160 && information.weight<=180 ) { forGraph.stored = 1800}
-    if ( information.weight > 180 && information.weight<=200 ) { forGraph.stored = 1900}
-    if ( information.weight > 200 ) { forGraph.stored = 2000}
+    if ( information.weight > 0 && information.weight<=100 ) { information.stored = 1400}
+    if ( information.weight > 100 && information.weight<=120 ) { information.stored = 1500}
+    if ( information.weight > 120 && information.weight<=140 ) { information.stored = 1600}
+    if ( information.weight > 140 && information.weight<=160 ) { information.stored = 1700}
+    if ( information.weight > 160 && information.weight<=180 ) { information.stored = 1800}
+    if ( information.weight > 180 && information.weight<=200 ) { information.stored = 1900}
+    if ( information.weight > 200 ) { information.stored = 2000}
 
     if ( information.gender === "f"){
-    forGraph.swimburn = ((0.4472*information.hr)-(0.05741*information.weight)+(0.074*information.age)-20.4022)*30/4.184
+    information.swimburn = ((0.4472*information.hr)-(0.05741*information.weight)+(0.074*information.age)-20.4022)*30/4.184
     }
     if ( information.gender === "m"){
-    forGraph.swimburn = ((0.6309*information.hr)-(0.09036*information.weight)+(0.2017*information.age)-55.0969)*30/4.184
+    information.swimburn = ((0.6309*information.hr)-(0.09036*information.weight)+(0.2017*information.age)-55.0969)*30/4.184
     }
     if ( information.gender === "o"){
-    forGraph.swimburn = ((0.6309*information.hr)-(0.09036*information.weight)+(0.2017*information.age)-55.0969)*30/4.184
+    information.swimburn = ((0.6309*information.hr)-(0.09036*information.weight)+(0.2017*information.age)-55.0969)*30/4.184
     }
 
-    forGraph.runburn = (0.75*information.weight)*information.runpace*0.5
-    forGraph.bikeburn = information.weight*information.bikepace*0.256032*0.5
-    forGraph.groundburn = (forGraph.bikeburn+forGraph.runburn)/2
-    forGraph.totalburn = (forGraph.bikeburn+forGraph.runburn+forGraph.swimburn)/3
-    forGraph.totaltime = Math.ceil(((information.swimpace/60)*2.4)+(112/information.bikepace)+(16/information.runpace))
-    localStorage.storedData = JSON.stringify(forGraph);
+    information.runburn = (0.75*information.weight)*information.runpace*0.5;
+    information.bikeburn = information.weight*information.bikepace*0.256032*0.5;
+    information.runbikeburn = (information.bikeburn+information.runburn)/2;
+    information.totalburn = (information.bikeburn+information.runburn+information.swimburn)/3;
+    information.totaltime = Math.ceil(((information.swimpace/60)*2.4)+(112/information.bikepace)+(16/information.runpace));
+    information.runbiketime = information.totaltime - (2.4*information.swimpace/60);
+    information.totalcals = ((2.4*information.swimpace/60)*information.swimburn)+(112/information.bikepace*information.bikeburn)+(26.2/information.runpace*information.runburn);
+    localStorage.storedData = JSON.stringify(information);
 
-    var usefulArray=[{"x_axis": 0, "y_axis": 0, "points": "", "stroke": "rgb(79, 47, 252)", "strokewidth": "2","fill": "none"},
-    {"x_axis": 0, "y_axis": 0, "points": "", "stroke": "rgb(48, 177, 169)", "strokewidth": "2","fill": "none"}];
+    var eat = 0;
+    if((information.stored+175*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 175
+    }
+    if((information.stored+175*(information.totaltime-1))-information.totalcals < 0 && (information.stored+200*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 200
+    }
+    if((information.stored+200*(information.totaltime-1))-information.totalcals < 0 && (information.stored+225*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 225
+    }
+    if((information.stored+225*(information.totaltime-1))-information.totalcals < 0 && (information.stored+250*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 250
+    }
+    if((information.stored+250*(information.totaltime-1))-information.totalcals < 0 && (information.stored+275*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 275
+    }
+    if((information.stored+275*(information.totaltime-1))-information.totalcals < 0 && (information.stored+300*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 300
+    }
+    if((information.stored+300*(information.totaltime-1))-information.totalcals < 0 && (information.stored+325*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 325
+    }
+    if((information.stored+325*(information.totaltime-1))-information.totalcals < 0 && (information.stored+350*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 350
+    }
+    if((information.stored+350*(information.totaltime-1))-information.totalcals < 0 && (information.stored+375*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 375
+    }
+    if((information.stored+375*(information.totaltime-1))-information.totalcals < 0 && (information.stored+400*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 400
+    }
 
-    var swimData = '';
-    swimData = "0,"+(400-forGraph.stored*0.2).toString()+" "+((information.swimpace/60)*2.4*55.88).toString()+","+(400-(forGraph.stored*0.2)+(forGraph.swimburn*2.4*0.2)).toString()+" "+((information.swimpace/60)*2.4*55.88).toString()+","+(400-(forGraph.stored*0.2)+(forGraph.swimburn*2.4*0.2)-250*0.2).toString()
+    var circlePoints = [];
+    circlePoints[0]=[0,information.stored];
+    circlePoints[1]=[(2.4*(information.swimpace/60)),(information.stored-information.swimburn*2.4*(information.swimpace/60))];
+    circlePoints[2]=[(2.4*(information.swimpace/60))+0.2, circlePoints[1][1]+eat];
 
-    usefulArray[0].points = swimData;
-    var bikeData = ((information.swimpace/60)*2.4*55.88).toString()+","+(400-(forGraph.stored*0.2)+(forGraph.swimburn*2.4*0.2)-250*0.2).toString()+" ";
+    for (var i = 1; i <= information.runbiketime+1; i++) {
+      circlePoints[(i)*2+1] = [(2.4*(information.swimpace/60)+(i)*1), (circlePoints[1][1]-(i)*information.runbikeburn+(i)*eat) ]
+      circlePoints[(i)*2+2] = [(2.4*(information.swimpace/60)+(i)*1+0.2), (circlePoints[1][1]-(i)*information.runbikeburn+(i+1)*eat)]
+    }
 
-    var minusSwim = forGraph.totaltime - (information.swimpace/60)*2.4
-    if(information.swimpace != 0){
-    for (var i = 1; i <= minusSwim+1; i++) {
-      if(i < minusSwim+1){
-      bikeData +=  (((information.swimpace/60)*2.4*55.88)+i*55.88).toString()+","+(400-(forGraph.stored*0.2)+(forGraph.swimburn*2.4*0.2)-i*250*0.2+i*(forGraph.groundburn*0.2)).toString()+" "+(((information.swimpace/60)*2.4*55.88)+i*55.88).toString()+","+(400-(forGraph.stored*0.2)+(forGraph.swimburn*2.4*0.2)-(i+1)*250*0.2+i*(forGraph.groundburn*0.2)).toString()+" ";
-        } else{
-      bikeData +=  (((information.swimpace/60)*2.4*55.88)+i*55.88).toString()+","+(400-(forGraph.stored*0.2)+(forGraph.swimburn*2.4*0.2)-i*250*0.2+i*(forGraph.groundburn*0.2)).toString()
+    var neww = $(window).width()*0.75,
+        newh = w/2-0.1*w,
+        newpadding = 40,
+        newxScale = d3.scale.linear()
+                          .domain([0, d3.max(circlePoints, function(d){return d[0];})])
+                          .range([0, neww-newpadding]),
+        newyScale = d3.scale.linear()
+                          .domain([0, d3.max(circlePoints, function(d){return d[1];})])
+                          .range([newh-newpadding, 0]),
+        newxAxis = d3.svg.axis()
+                      .scale(newxScale)
+                      .orient("bottom")
+                      .ticks(newh/35)
+                      .outerTickSize(0),
+        newyAxis = d3.svg.axis()
+                      .scale(newyScale)
+                      .orient("left")
+                      .ticks(neww/100)
+                      .outerTickSize(0);
+
+        var linePoints = [];
+
+        for (var i = 0; i < circlePoints.length; i++) {
+          insidearray = [0,0];
+          insidearray[0] = newxScale(circlePoints[i][0])+newpadding;
+          insidearray[1] = newyScale(circlePoints[i][1]);
+          linePoints.push(insidearray);
+          }
+        for (var i = 0; i < linePoints.length; i++) {
+          linePoints[i] = linePoints[i].join(",")
         }
-      }
-    }
-    var fancyWidth = forGraph.totaltime*55.88;
+        linePoints = linePoints.join(" ");
 
-    usefulArray[1].points = bikeData;
+    canvas.transition()
+          .delay(1000)
+          .duration(2000)
+          .ease("linear")
+          .attr({
+            height: newh+"px",
+            width: neww+"px"
+          });
+    d3.selectAll("circle")
+          .remove();
+    canvas.selectAll("circle")
+          .data(circlePoints)
+          .enter()
+          .append("circle")
+          .transition()
+          .delay(3500)
+          .duration(2000)
+          .ease("linear")
+          .attr({
+            cx: function(d){return newxScale(d[0])+newpadding;},
+            cy: function(d){return newyScale(d[1]);},
+            r: 2
+          });
+    canvas.selectAll("polyline")
+          .transition()
+          .delay(1500)
+          .duration(2000)
+          .ease("linear")
+          .attr({
+          points: linePoints,
+          });
+    xaxis.transition()
+          .delay(1000)
+          .duration(2000)
+          .ease("linear")
+          .attr("transform", "translate("+newpadding+","+(newh-newpadding)+")")
+          .call(newxAxis);
+    yaxis.transition()
+          .delay(1000)
+          .duration(2000)
+          .ease("linear")
+          .attr("transform", "translate("+newpadding+",0)")
+          .call(newyAxis);
 
-    var swimDataP = swimData.split(' ').join(',');
-    var swimDataP = swimDataP.split(',')
-    var bikeDataP = bikeData.split(' ').join(',');
-    var bikeDataP = bikeDataP.split(',')
+    var chartHTML = '<div class="colL"><h3 class="infostyle">My Numbers</h3><div class="numbersrow"><div class="numberitem"><h4 class="number">'+Math.round(information.totaltime)+'+</h4><p class="numbersmall">Total time</p></div><div class="numberitem"><h4 class="number">'+eat+'</h4><p class="numbersmall">Ideal cals/hour</p></div></div><div class="numbersrow"><div class="numberitem"><h4 class="number">'+Math.round(information.swimburn*2)+'</h4><p class="numbersmall">Swim calorie burn</p></div><div class="numberitem"><h4 class="number">'+Math.round(information.bikeburn*2)+'</h4><p class="numbersmall">Bike calorie burn</p></div><div class="numberitem"><h4 class="number">'+Math.round(information.runburn*2)+'</h4><p class="numbersmall">Run calorie burn</p></div></div></div><div class="colR"><h3 class="infostyle">What is this graph saying?</h3><ul><h5 class="title1">Carbohydrate Calories&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list1">First off, this graph is only showing immediately available carbohydrate calories, not calories stored as fat. Your body fuels endurance races from both sources, but you can continue to take in usable carbohydrates during a race, while you rely on existing fat sources.</li><h5 class="title2">Stored glycogen&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list2">You will start off with an amount of stored glycogen based on your weight. Your stored glycogen is '+information.stored +' calories.</li><h5 class="title3">Burn rate&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list3">Each dip in the graph represent the carbohydrate calories you burn per hour, roughly half of your total calories burned. You burn '+Math.round(information.swimburn*2)+' calories per hour while swimming, '+Math.round(information.runburn*2)+' calories per hour while running and '+Math.round(information.bikeburn*2)+' calories per hour while biking.</li><h5 class="title4">Fueling&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list4">Each increase in the graph is from eating during the race. Our model seeks to find your optimal calorie intake based on eating just enough to make sure you do not run out of carbohydrate calories by the end of the race. This graph is showing that your optimal calorie intake is '+eat+' calories per hour.</li></ul></div>';
 
-    var inputCircles = [
-      {"x_axis": "0", "y_axis": (400-forGraph.stored*0.2).toString()},
-      {"x_axis": swimDataP[2], "y_axis": swimDataP[3]},
-      {"x_axis": swimDataP[4], "y_axis": swimDataP[5]},
-      {"x_axis": swimDataP[6], "y_axis": swimDataP[7]},
-    ]
-
-    for (var i = 1; i < bikeDataP.length/2-1; i++) {
-      inputCircles[i+2] = {"x_axis": bikeDataP[i*2], "y_axis": bikeDataP[i*2+1]}
-    }
-
-    d3Chart = {
-      container: d3.select(".chart")
-                  .append("svg")
-                  .attr("width", fancyWidth)
-                  .attr("height", 400)
-                  .style("display", "inline")
-                  .style("border", "1px solid rgb(68, 137, 217)"),
-      triChartFn: triChart,
-      circlesFn: circles
-    };
-
-    function triChart ( newPoints ) {
-      var dataPoints = newPoints
-
-      var graph = d3Chart.container.selectAll("polyline").data(dataPoints).enter().append("polyline");
-      var graphAtts = graph.attr("x", function(d) { return d.x_axis;})
-                            .attr("y", function(d) { return d.y_axis;})
-                            .transition()
-                            .attr("points", function(d) { return d.points;})
-                            .attr("stroke", "#333")
-                            .attr("stroke-width", function(d) { return d.strokewidth;})
-                            .attr("fill", "none")
-    }
-
-    function circles (newCircles){
-      var circlePoints = newCircles;
-      var edge = Number(d3Chart.container.attr("width"));
-      var fuel = d3Chart.container.selectAll("circle").data(circlePoints).enter().append("circle");
-      var fuelAtts = fuel.attr("cx", function(d) { return d.x_axis;})
-                            .attr("cy", function(d) { return d.y_axis;})
-                            .attr("r", "10")
-                            .attr("fill", "#ee596b")
-      var showtotal = d3Chart.container.append("text")
-                                      .attr("x", parseInt(edge-250))
-                                      .attr("y", "30")
-                                      .text("Your total time is "+forGraph.totaltime+"+ hours")
-      }
-
-    d3Chart.triChartFn(usefulArray);
-    d3Chart.circlesFn(inputCircles);
-
-    var chartHTML = '<h3 class="infostyle">What is this graph saying?</h3><ul><h5 class="title1">Carbohydrate Calories&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list1">First off, this graph is only showing immediately available carbohydrate calories, not calories stored as fat. Your body fuels endurance races from both sources, but you can continue to take in usable carbohydrates during a race, while you rely on existing fat sources.</li><h5 class="title2">Stored glycogen&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list2">You will start off with an amount of stored glycogen based on your weight. Your stored glycogen is '+forGraph.stored +' calories.</li><h5 class="title3">Burn rate&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list3">Each dip in the graph represent the carbohydrate calories you burn per hour, roughly half of your total calories burned. You burn '+Math.round(forGraph.swimburn*2)+' calories per hour while swimming, '+Math.round(forGraph.runburn*2)+' calories per hour while running and '+Math.round(forGraph.bikeburn*2)+' calories per hour while biking.</li><h5 class="title4">Fueling&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list4">For our model, we used a standard 250 cals/hr fueling plan, which is why the graph shows a flat increase every hour.</li><h5 class="title5">My line goes off the chart!&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list5">If your line dips below the bottom of the chart, this means your body would be relying on fat calories to finish the race since 250 cals per hour was not able to replace what you burned. Our advice is to up your calorie per hour intake (more than 250) if you see this happening in the graph.</li></ul>';
-
-    $(".chartInfo").append(chartHTML)
+    $(".chartInfo").append(chartHTML);
 
     function closeOpen(){
       $(".list1").css({"display": "none"});
@@ -182,7 +288,7 @@ $(function(){
         array[randomIndex] = temporaryValue;
       }
       return array;
-    }
+    };
 
     shuffle(fuelArray);
     var pickedFuel = fuelArray.splice(0,5);
@@ -190,9 +296,8 @@ $(function(){
     var prevData = JSON.parse(localStorage.storedData);
     var burnrate = Math.round(prevData.totalburn*2);
 
-    $(".top").append("<h5 class='little'>Hover over the data points to view your available calories</h5>")
-    $(".titlerow").append("<h3 class='middle'>You burn roughly "+burnrate+" calories per hour! Refuel yourself with:</h3>")
-    $(".foodrow").append(joinedFuel);
+    $(".fueltitle").append("<h3 class='middle'>You burn an average of "+burnrate+" calories per hour! Refuel yourself with:</h3>")
+    $(".fuelrow").append(joinedFuel);
 
     $(".fuel").on("mouseenter", function(){
       $(this).find('.caption').css({"visibility": "visible"});
@@ -200,39 +305,16 @@ $(function(){
     $(".fuel").on("mouseleave", function(){
       $(this).find('.caption').css({"visibility": "hidden"});
     })
+  })
 
-    $("circle").on("mouseenter", function(){
-      var circleX = "Hour "+Math.round(Number($(this).attr("cx"))/55.88);
-      var circlyY = ": "+Math.round(2000-Number($(this).attr("cy"))*5)+" calories";
-      var circlespot = circleX+circlyY;
-      var edge = Number(d3Chart.container.attr("width"));
-      console.log(circleX);
-      console.log(circlyY);
-      var box = d3Chart.container.append("rect")
-      var boxAtts = box.attr("x", parseInt(edge-270))
-                        .attr("y", "40")
-                        .attr("fill", "rgb(68, 137, 217)")
-                        .attr("width", "300px")
-                        .attr("height", "50px")
-      var cap = d3Chart.container.append("text");
-      var capAtts = cap.attr("x", parseInt(edge-250))
-                          .attr("y", "70")
-                          .attr("class", "info")
-                          .attr("fill", "white")
-                          .text(circlespot);
-    })
-
-    $("circle").on("mouseleave", function(){
-      $(".info").remove();
-      $("rect").remove();
-
-    })
+  $(".meaning").on("click", function(){
+    $('html, body').animate({
+        scrollTop: $("#explain").offset().top
+    }, 1000);
   })
 
   $(".clear").on("click", function(){
     location.reload();
   })
-  $(".fueladvice").on("click", function(){
-    $("html, body").animate({ scrollTop: "1400px" });
-  })
+
 })
