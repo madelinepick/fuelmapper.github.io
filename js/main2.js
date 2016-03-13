@@ -3,7 +3,7 @@ $(function(){
   [0,1800],[2.3,1200],[3.3,1450],[3.5,1125],[4.3,1375],[4.5,1050],[5.3,1300],[5.5,975],[6.3,1225],[6.5,900],[7.3,1150],[7.5,825],[8.3,1075],[8.5,750],[9.3,1000],[9.5,675],[10.3,925],[10.5,600],[11.3,850],[11.5,525]
   ];
 var w = $(window).width()*0.75,
-    h = w/2,
+    h = w/2-0.1*w,
     padding = 40,
     xScale = d3.scale.linear()
                       .domain([0, d3.max(defaultdata, function(d){return d[0];})])
@@ -14,12 +14,12 @@ var w = $(window).width()*0.75,
     xAxis = d3.svg.axis()
                   .scale(xScale)
                   .orient("bottom")
-                  .ticks(8)
+                  .ticks(h/35)
                   .outerTickSize(0),
     yAxis = d3.svg.axis()
                   .scale(yScale)
                   .orient("left")
-                  .ticks(6)
+                  .ticks(w/100)
                   .outerTickSize(0);
 
 var defaultline = [];
@@ -56,7 +56,7 @@ var scatter = canvas.selectAll("circle")
                     .attr({
                       cx: function(d){return xScale(d[0])+padding;},
                       cy: function(d){return yScale(d[1]);},
-                      r: 2
+                      r: 1
                     });
 var lineplot = canvas.append("polyline")
                     .attr({
@@ -109,19 +109,34 @@ var lineplot = canvas.append("polyline")
     localStorage.storedData = JSON.stringify(information);
 
     var eat = 0;
-    if((information.stored+200*(information.totaltime-1))-information.totalcals >= 0){
+    if((information.stored+175*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 175
+    }
+    if((information.stored+175*(information.totaltime-1))-information.totalcals < 0 && (information.stored+200*(information.totaltime-1))-information.totalcals >= 0){
       eat = 200
     }
-    if((information.stored+200*(information.totaltime-1))-information.totalcals < 0 && (information.stored+250*(information.totaltime-1))-information.totalcals >= 0){
+    if((information.stored+200*(information.totaltime-1))-information.totalcals < 0 && (information.stored+225*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 225
+    }
+    if((information.stored+225*(information.totaltime-1))-information.totalcals < 0 && (information.stored+250*(information.totaltime-1))-information.totalcals >= 0){
       eat = 250
     }
-    if((information.stored+250*(information.totaltime-1))-information.totalcals < 0 && (information.stored+300*(information.totaltime-1))-information.totalcals >= 0){
+    if((information.stored+250*(information.totaltime-1))-information.totalcals < 0 && (information.stored+275*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 275
+    }
+    if((information.stored+275*(information.totaltime-1))-information.totalcals < 0 && (information.stored+300*(information.totaltime-1))-information.totalcals >= 0){
       eat = 300
     }
-    if((information.stored+300*(information.totaltime-1))-information.totalcals < 0 && (information.stored+350*(information.totaltime-1))-information.totalcals >= 0){
+    if((information.stored+300*(information.totaltime-1))-information.totalcals < 0 && (information.stored+325*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 325
+    }
+    if((information.stored+325*(information.totaltime-1))-information.totalcals < 0 && (information.stored+350*(information.totaltime-1))-information.totalcals >= 0){
       eat = 350
     }
-    if((information.stored+350*(information.totaltime-1))-information.totalcals < 0 && (information.stored+400*(information.totaltime-1))-information.totalcals >= 0){
+    if((information.stored+350*(information.totaltime-1))-information.totalcals < 0 && (information.stored+375*(information.totaltime-1))-information.totalcals >= 0){
+      eat = 375
+    }
+    if((information.stored+375*(information.totaltime-1))-information.totalcals < 0 && (information.stored+400*(information.totaltime-1))-information.totalcals >= 0){
       eat = 400
     }
 
@@ -136,7 +151,7 @@ var lineplot = canvas.append("polyline")
     }
 
     var neww = $(window).width()*0.75,
-        newh = w/2,
+        newh = w/2-0.1*w,
         newpadding = 40,
         newxScale = d3.scale.linear()
                           .domain([0, d3.max(circlePoints, function(d){return d[0];})])
@@ -147,12 +162,12 @@ var lineplot = canvas.append("polyline")
         newxAxis = d3.svg.axis()
                       .scale(newxScale)
                       .orient("bottom")
-                      .ticks(8)
+                      .ticks(newh/35)
                       .outerTickSize(0),
         newyAxis = d3.svg.axis()
                       .scale(newyScale)
                       .orient("left")
-                      .ticks(6)
+                      .ticks(neww/100)
                       .outerTickSize(0);
 
         var linePoints = [];
@@ -189,16 +204,15 @@ var lineplot = canvas.append("polyline")
           .attr({
             cx: function(d){return newxScale(d[0])+newpadding;},
             cy: function(d){return newyScale(d[1]);},
-            r: 5
+            r: 2
           });
-
     canvas.selectAll("polyline")
           .transition()
           .delay(1500)
           .duration(2000)
           .ease("linear")
           .attr({
-            points: linePoints,
+          points: linePoints,
           });
     xaxis.transition()
           .delay(1000)
@@ -213,7 +227,7 @@ var lineplot = canvas.append("polyline")
           .attr("transform", "translate("+newpadding+",0)")
           .call(newyAxis);
 
-    var chartHTML = '<section class="formrow"><div class="colL"><h3 class="infostyle">My Numbers</h3><ul><h5>Total time</h5><li class="here">Your Ironman will take <strong>'+Math.round(information.totaltime)+'+</strong> hours (not inlcuding transitions).</li><h5>Burn rates</h5><li class="here">You burn <strong>'+Math.round(information.swimburn*2)+'</strong> calories per hour while swimming,  <strong>'+Math.round(information.bikeburn*2)+'</strong> calories per hour while biking, and <strong>'+Math.round(information.runburn*2)+'</strong> calories per hour while running.</li><h5>Optimal Calorie Intake</h5><li class="here">Based on your caloric burn rates and the total time of your Ironman, your ideal calorie intake is <strong>'+eat+'</strong> calories per hour. This is the rate at which you should fuel to avoid bonking during the race and relying completely on fat calories.</li></ul></div><div class="colR"><h3 class="infostyle">What is this graph saying?</h3><ul><h5 class="title1">Carbohydrate Calories&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list1">First off, this graph is only showing immediately available carbohydrate calories, not calories stored as fat. Your body fuels endurance races from both sources, but you can continue to take in usable carbohydrates during a race, while you rely on existing fat sources.</li><h5 class="title2">Stored glycogen&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list2">You will start off with an amount of stored glycogen based on your weight. Your stored glycogen is '+information.stored +' calories.</li><h5 class="title3">Burn rate&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list3">Each dip in the graph represent the carbohydrate calories you burn per hour, roughly half of your total calories burned. You burn '+Math.round(information.swimburn*2)+' calories per hour while swimming, '+Math.round(information.runburn*2)+' calories per hour while running and '+Math.round(information.bikeburn*2)+' calories per hour while biking.</li><h5 class="title4">Fueling&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list4">Each increase in the graph is from eating during the race. Our model seeks to find your optimal calorie intake based on eating just enough to make sure you do not run out of carbohydrate calories by the end of the race. This graph is showing your optimal calorie intake, '+eat+' calories per hour</li></ul></div></section>';
+    var chartHTML = '<div class="colL"><h3 class="infostyle">My Numbers</h3><div class="numbersrow"><div class="numberitem"><h4 class="number">'+Math.round(information.totaltime)+'+</h4><p class="numbersmall">Total time</p></div><div class="numberitem"><h4 class="number">'+eat+'</h4><p class="numbersmall">Ideal cals/hour</p></div></div><div class="numbersrow"><div class="numberitem"><h4 class="number">'+Math.round(information.swimburn*2)+'</h4><p class="numbersmall">Swim calorie burn</p></div><div class="numberitem"><h4 class="number">'+Math.round(information.bikeburn*2)+'</h4><p class="numbersmall">Bike calorie burn</p></div><div class="numberitem"><h4 class="number">'+Math.round(information.runburn*2)+'</h4><p class="numbersmall">Run calorie burn</p></div></div></div><div class="colR"><h3 class="infostyle">What is this graph saying?</h3><ul><h5 class="title1">Carbohydrate Calories&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list1">First off, this graph is only showing immediately available carbohydrate calories, not calories stored as fat. Your body fuels endurance races from both sources, but you can continue to take in usable carbohydrates during a race, while you rely on existing fat sources.</li><h5 class="title2">Stored glycogen&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list2">You will start off with an amount of stored glycogen based on your weight. Your stored glycogen is '+information.stored +' calories.</li><h5 class="title3">Burn rate&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list3">Each dip in the graph represent the carbohydrate calories you burn per hour, roughly half of your total calories burned. You burn '+Math.round(information.swimburn*2)+' calories per hour while swimming, '+Math.round(information.runburn*2)+' calories per hour while running and '+Math.round(information.bikeburn*2)+' calories per hour while biking.</li><h5 class="title4">Fueling&nbsp;&nbsp;<i class="fa fa-angle-down fa-lg"></i></h5><li class="list4">Each increase in the graph is from eating during the race. Our model seeks to find your optimal calorie intake based on eating just enough to make sure you do not run out of carbohydrate calories by the end of the race. This graph is showing that your optimal calorie intake is '+eat+' calories per hour.</li></ul></div>';
 
     $(".chartInfo").append(chartHTML);
 
@@ -282,7 +296,7 @@ var lineplot = canvas.append("polyline")
     var prevData = JSON.parse(localStorage.storedData);
     var burnrate = Math.round(prevData.totalburn*2);
 
-    $(".fueltitle").append("<h3 class='middle'>You burn roughly "+burnrate+" calories per hour! Refuel yourself with:</h3>")
+    $(".fueltitle").append("<h3 class='middle'>You burn an average of "+burnrate+" calories per hour! Refuel yourself with:</h3>")
     $(".fuelrow").append(joinedFuel);
 
     $(".fuel").on("mouseenter", function(){
@@ -296,12 +310,6 @@ var lineplot = canvas.append("polyline")
   $(".meaning").on("click", function(){
     $('html, body').animate({
         scrollTop: $("#explain").offset().top
-    }, 1000);
-  })
-
-  $(".fueladvice").on("click", function(){
-    $('html, body').animate({
-        scrollTop: $("#fuellist").offset().top
     }, 1000);
   })
 
