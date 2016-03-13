@@ -308,11 +308,9 @@ a {
   i{
     display: none;
   }
-  li{
-    padding: 5px;
-  }
   .title1, .title2, .title3, .title4, .title5{
     border: 1px solid #ee596b;
+    padding: 5px;
   }
   .charttitle{
     margin-top: 0px;
