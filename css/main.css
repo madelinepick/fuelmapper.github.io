@@ -16,9 +16,11 @@ h1, h2{
   color: #4489d9;
 }
 h1{
+  font-family: "Amatic SC", sans-serif;
   font-weight: 400;
-  font-size: 50px;
+  font-size: 70px;
   text-transform: uppercase;
+  margin-bottom: 20px;
 }
 h2{
   text-transform: uppercase;
@@ -73,7 +75,7 @@ button, #submit {
   margin-left: 2%;
 }
 .charttitle{
-  font-size: 30px;
+  font-size: 45px;
   text-align: left;
   margin-left: 2%;
 }
@@ -214,6 +216,31 @@ a {
   font-size: .8em;
   text-align: center;
 }
+.hero {
+  margin: 0px 0px 80px 0px;
+  height: 500px;
+  background-image: url(../Assets/kona.jpg);
+}
+.title {
+  font-size: 60px;
+  margin: 0px 0px 0px 700px;
+  padding-top: 200px;
+  position: absolute; }
+.here {
+  display: inline;
+  position: absolute;
+  margin-left: 810px;
+  margin-top: 300px; }
+
+.tidy {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  padding-top: 0px; }
+
+
+
 @media only screen and (min-width: 650px) and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1){
   form{
     width: 75%;
@@ -231,7 +258,7 @@ a {
     width: 50%;
   }
   h1{
-    font-size: 20px;
+    font-size: 35px;
   }
   h2{
     font-size: 12px;
@@ -256,7 +283,7 @@ a {
     padding-left: 0px;
   }
   .charttitle{
-    font-size: 20px;
+    font-size: 30px;
   }
   button, #submit{
     font-size: 9px;

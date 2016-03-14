@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width"/>
   <title>FuelMapper</title>
   <meta name="description" content="Map your carbohydrate usage during Ironman">
   <meta property="og:title" content="FuelMapper">
   <meta property="og:image" content="Assets/kona.jpg">
   <meta property="og:description" content="Map your carbohydrate usage">
   <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="css/main.css">
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/landing.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
   <script type="text/javascript" src="js/landing.js"></script>
@@ -16,43 +18,33 @@
 </head>
 <body>
   <div class="hero">
-    <h1 class="title">FUELMAPPER</h1>
-    <button class="here">What is it?</button>
-  </div>
-    <h1 class="noindent">What is FUELMAPPER?</h1>
-    <div class="tidy">
-      <h4 class="subtitle">Fuel planning for your Ironman can be <strong>tough</strong>. Who wants to calculate burn rates and track calorie depletion throughout the race? Fuelmapper does it all for you.</h4>
+    <div class="leftside">
+      <h1 class="title">FUELMAPPER</h1>
+      <button class="home">What is it?</button><br>
+      <button class="explore">Explore the science</button>
     </div>
-      <div class="row2">
-          <div class="col edges"></div>
-          <div class="col">
-            <i class="fa fa-pencil-square-o fa-5x"></i>
-            <h4 class="coltext">Input your expected Ironman data</h4>
-          </div>
-          <div class="col">
-            <i class="fa fa-refresh fa-spin fa-5x"></i>
-            <h4 class="coltext">Let our data engine convert your inputs into useful numbers.</h4>
-          </div>
-          <div class="col">
-            <i class="fa fa-area-chart fa-5x"></i>
-            <h4 class="coltext">Get a customized graph of your calorie usage during Ironman</h4>
-          </div>
-          <div class="col edges"></div>
-      </div>
-  <div class="col">
-    <button class="why">Why do carbohydrate calories matter?</button>
-  </div>
-  <div class="whybox">
-    <div class="whytext">
-      <h3>Carbohydrates VS Fat</h3>
-      <p>Your body fuels endurance racing from two sources: stores of fat and carbohydrates. It's roughly half from each source (varies greatly depending on pace).</p>
-      <h3>Why do Carbs matter?</h3>
-      <p>Fueling from fat sources are limited during a race to what you already have, but carbs are different! You can continue to take in carbohydrate calorie sources during a race to increase your available energy. It's important to know how much you are burning so you can refuel yourself at the correct rate.</p>
+    <div class="rightside1">
+      <h2 id="first">Fuel your Ironman</h2>
+      <div class="horizontal"></div>
+      <p>Do you get frustrated trying to make a fueling plan for your Ironman?</p>
+      <p>Fuelmapper uses your personal data to find your ideal calorie intake for the greatest long-distance triathlon of our time.</p>
+      <p>Simply enter your paces, heart rate, weight, and age, and Fuelmapper will calculate the amount of fuel you need per hour to avoid running out of energy.</p>
       <button class="start">Get Started</button>
     </div>
-  </div>
-  <div class="filler">
-    <h5 class="footer">Created for g-school full stack program by Madeline Pickering.</h5 class="footer">
+    <div class="rightside2">
+      <h2 id="carbs">What are carbohydrate calories?</h2>
+      <div class="horizontal"></div>
+      <p>During an endurance race, you burn calories from two main sources: stores of carbohydrates and stores of fat. Roughly half of the calories you use come from each source (this is HIGHLY dependent on metabolic efficiency, intensity, body mass and other variables).</p>
+      <p>Carbohydrate calories can be replaced during activity, which means these are the calories we are focused on for a fueling plan.</p>
+      <p>Of course, this model is an estimate and should be tested many months before race time. Assumptions in this model include:</p>
+      <ul>
+        <li>You burn half carbohydrate calories and half fat calories.</li>
+        <li>Your calorie burn rates are estimated using pace, weight, heart rate, and age.</li>
+        <li>You absorb all calories you take in and they are available for use within 20 minutes</li>
+      </ul>
+      <p>Read more about the science <a href="http://home.trainingpeaks.com/blog/article/race-fueling-how-many-calories-should-i-eat">here.</a></p>
+      <button class="start">Get Started</button>
+    </div>
   </div>
 </body>
 </html>

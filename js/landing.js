@@ -1,9 +1,11 @@
 $(function(){
-  $(".here").on("click", function(){
-    $("html, body").animate({ scrollTop: "550px" });
+  $(".home").on("click", function(){
+    $(".rightside1").show();
+    $(".rightside2").hide();
   })
-  $(".why").on("click", function(){
-    $("html, body").animate({ scrollTop: "1200px" });
+  $(".explore").on("click", function(){
+    $(".rightside1").hide();
+    $(".rightside2").show();
   })
   $(".start").on("click", function(){
     window.location.href = "http://madelinepick.github.io/fuelmapper.github.io/app.html";
